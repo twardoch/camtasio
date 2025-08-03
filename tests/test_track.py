@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from camtasia.effects import ChromaKeyEffect
 from camtasia.color import RGBA
+from camtasia.effects import ChromaKeyEffect
 from camtasia.project import Project
 
 
@@ -21,12 +21,12 @@ class TestTrack:
     def test_track_audio_muted(self, project):
         project.timeline.tracks.insert_track(2, 'test-track')
         track = project.timeline.tracks[2]
-        assert track.audio_muted == False
+        assert not track.audio_muted
 
     def test_track_video_hidden(self, project):
         project.timeline.tracks.insert_track(2, 'test-track')
         track = project.timeline.tracks[2]
-        assert track.video_hidden == False
+        assert not track.video_hidden
 
     def test_initially_has_no_medias(self, project):
         project.timeline.tracks.insert_track(2, 'test-track')
@@ -59,7 +59,7 @@ class TestTrackMedia:
         assert media.id == media_id
         assert media.source == bin_media.id
 
-    def test_add_overlapping_media_raises_ValueError(self, project: Project, media_root: Path):
+    def test_add_overlapping_media_raises_value_error(self, project: Project, media_root: Path):
         track = project.timeline.tracks.insert_track(2, 'test-track')
 
         # Add image at start of track
@@ -134,7 +134,7 @@ class TestTrackMedia:
         media_path = media_root / 'llama.jpg'
         bin_media = project.media_bin.import_media(media_path)
         track = project.timeline.tracks.insert_track(2, 'test-track')
-        effect = ChromaKeyEffect()
+        ChromaKeyEffect()
         media_id = track.medias.add_media(bin_media, 0).id
         media = track.medias[media_id]
         new_effect = ChromaKeyEffect(hue=RGBA(128, 0, 0, 255))

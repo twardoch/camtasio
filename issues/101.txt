@@ -1,0 +1,15 @@
+
+<objective>
+- The full codebase snapshot is in `llms.txt`
+- @src/camtasia is the main code that we need to modernize. It’s a outdated. But its principal functionality is still relevant. 
+- We need to port @README.rst and @setup.cfg and @setup.py to modern Python: @README.md  and @pyproject.toml built and orchestrated with `hatch`, `hatch-vcs`, `ruff`, `hatch-uv`, `uv`, `mypy`. 
+- @ref/tscprojpy is a separate small package that I made. We need to integrate its functionality into @src/camtasia. 
+- @ref/docs/tscproj-format is unofficial documentation of the .tscproj format. We need to move it to @docs and improve it, bringing in learnings from the @src/camtasia codebase.
+- @ref/clexporter.txt is the CLI for Camtasia exporter, which SOMEHOW can open a Camtasia project and export it to a video. I wasn’t able to make it work but we should try. 
+- @testdata/callout.cmproj is a sample project that we can use to test the exporter and the codebase. 
+</objective>
+
+<task>
+Analyze all relevant files in the codebase. Write @README.md that documents the codebase (port @README.rst but also incorporate @ref/tscprojpy/README.md and the promise of the other functionalities). Then /plan the work and write into @PLAN.md. Then write @TODO.md as a linearized list of tasks. Then write @GEMINI.md that contains a summary of the codebase and project, and detailed instructions for how the code needs to be modernized. Then execute the 'ding' shell tool.
+</task>
+

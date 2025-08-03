@@ -1,0 +1,24 @@
+**Project:** `camtasio`
+
+**TLDR:** This is a Python toolkit for programmatically reading, manipulating, and writing Camtasia (`.cmproj`, `.tscproj`) project files. It's currently undergoing a modernization effort to unify a comprehensive legacy library with a modern CLI tool into a single, robust package.
+
+**Core Functionality:**
+- **Project Parsing:** Loads and understands the JSON structure of `.tscproj` files.
+- **Spatial Scaling:** Scales the project canvas and all visual elements (media, annotations) to new dimensions.
+- **Temporal Scaling:** Modifies the timeline by adjusting the speed and duration of clips.
+- **Object Model:** Provides a Pythonic, object-oriented interface (`Project`, `Timeline`, `Track`, etc.) to interact with project data.
+- **CLI:** Offers a command-line interface built with `fire` and `rich` for easy automation and batch processing of Camtasia projects.
+
+**Architecture & Technology:**
+- **Build System:** Uses `pyproject.toml` with `hatch` for modern packaging and dependency management.
+- **Data Validation:** Leverages `pydantic` to ensure the integrity and structure of the Camtasia project data.
+- **Code Quality:** Enforces standards with `ruff` for linting/formatting and `mypy` for static type analysis.
+- **Testing:** A comprehensive test suite is built with `pytest`.
+
+**Project State:**
+The codebase is a blend of old and new, reflecting an active migration. It contains:
+- `src/camtasia/`: The original, more comprehensive legacy package.
+- `ref/tscprojpy/`: A newer, CLI-focused package.
+- `src/camtasio/`: The new, unified package that is the focus of current development, combining the strengths of the other two.
+
+In essence, `camtasio` aims to be the definitive tool for any developer needing to automate or perform complex modifications to Camtasia projects outside the GUI.

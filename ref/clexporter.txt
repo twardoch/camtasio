@@ -1,0 +1,39 @@
+$ /Applications/Camtasia.app/Contents/Resources/CLExporter --help
+Allowed options:
+  --help                                produce help message
+  -o [ --outputFile ] arg               output file or directory
+  -p [ --project ] arg                  project xml
+  -s [ --combinedSettings ] arg         Camtasia production settings plist
+  -i [ --progressIdentifier ] arg       Unique identifier for where the
+                                        progress gets written out to
+  -r [ --renderColorSpacePath ] arg     path for the temporary file of the
+                                        render colorspace
+  -f [ --fileColorSpacePath ] arg       path for the temporary file of the file
+                                        colorspace
+  --vstPath arg                         paths to look for VST plugins
+  --debugAttachSleepSeconds arg         the number of seconds to sleep to allow
+                                        debugger to attach
+  --debugCrashAfterSeconds arg          the number of seconds before the app
+                                        crashes
+  --fontSearchFolder arg                folder to search for additional fonts
+  --fragmentShaderFile arg
+  --fragmentShaderEntry arg
+  --fragmentShaderTexture arg
+  --vertexShaderFile arg
+  --vertexShaderEntry arg
+  --vertexShaderModelviewproj arg
+  --NalpeironLicensingFeatureSwitch arg Feature switch value for Nalpeiron
+  --deviceFrameSearchPath arg           path for additional device frames
+  --colorLUTSearchPath arg              path for color lookup tables
+  --cursorImagesFolder arg              location of cursor images
+  --cursorImagePacksFolder arg          location of cursor image packs base
+                                        folder
+  --addOnSearchPath arg                 path for additional device frames
+  --cursorSoundFXPath arg               location for cursor sound FX
+  --keystrokeImagesPath arg             location for keystroke images
+  --placeholderText arg                 text to show for a placeholder
+  --reportCrash arg                     launch crash report UI
+  --isPreview arg
+  --skipShaderValidation arg
+
+error: parsing command line arguments.

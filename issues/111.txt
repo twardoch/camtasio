@@ -1,0 +1,9 @@
+Read @PLAN.md & @TODO.md and review the `llms.txt` codebase snapshot. 
+
+Then /report and /cleanup : Actually REMOVE everything that is completed from @PLAN.md and from @TODO.md , only keep tasks that are not addressed yet! 
+
+Update /plan in @PLAN.md and @TODO.md — focus on CLEANING UP the codebase of REDUNDANT, or OBSOLETE files. Think hard. Then also /plan additional improvements that aim at delivering solid, performant, clean, reliable maintainable code. 
+
+Then /work and periodically /report and /cleanup and then rhink hard and /work more. 
+
+Iterate until you've cleaned up 100% of the tasks from @PLAN.md & @TODO.md 

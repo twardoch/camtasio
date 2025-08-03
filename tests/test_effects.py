@@ -1,7 +1,7 @@
 from pprint import pprint
 
-from camtasia.effects import ChromaKeyEffect, EffectSchema
 from camtasia.color import RGBA
+from camtasia.effects import ChromaKeyEffect, EffectSchema
 
 
 def test_create_default_chromakey_effect():
