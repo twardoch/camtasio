@@ -2,7 +2,7 @@
 """Canvas model representing project dimensions and settings."""
 
 from dataclasses import dataclass
-from typing import Self
+from typing import Self, Any
 
 
 @dataclass(frozen=True)

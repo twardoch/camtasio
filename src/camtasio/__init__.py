@@ -24,27 +24,77 @@ from .models import (
 from .serialization import ProjectLoader, ProjectSaver, detect_version
 from .transforms import PropertyTransformer, TransformConfig, TransformType
 
-# High-level operations (to be added from legacy camtasia)
-# from .operations import scale_project, timescale_project
+# Effects and annotations
+from .effects import Effect, VisualEffect, ChromaKeyEffect
+from .annotations import (
+    Color,
+    FillStyle,
+    StrokeStyle,
+    HorizontalAlignment,
+    VerticalAlignment,
+    text_callout,
+    square_callout,
+)
+
+# Utilities
+from .utils import RGBA, hex_to_rgb, FrameStamp
+
+# Operations
+from .operations import (
+    add_media_to_track,
+    remove_media,
+    duplicate_media,
+    find_media_references,
+)
+
+# CLI application
+from .cli import app
 
 __all__ = [
+    # Models
     "AudioMedia",
     "Canvas",
     "ImageMedia",
     "Media",
     "Project",
-    "ProjectLoader",
     "ProjectMetadata",
-    "ProjectSaver",
-    "PropertyTransformer",
     "SourceBin",
     "SourceItem",
     "Timeline",
     "Track",
+    "VideoMedia",
+    "create_media_from_dict",
+    # Serialization
+    "ProjectLoader",
+    "ProjectSaver",
+    "detect_version",
+    # Transforms
+    "PropertyTransformer",
     "TransformConfig",
     "TransformType",
-    "VideoMedia",
+    # Effects
+    "Effect",
+    "VisualEffect",
+    "ChromaKeyEffect",
+    # Annotations
+    "Color",
+    "FillStyle",
+    "StrokeStyle",
+    "HorizontalAlignment",
+    "VerticalAlignment",
+    "text_callout",
+    "square_callout",
+    # Utilities
+    "RGBA",
+    "hex_to_rgb",
+    "FrameStamp",
+    # Operations
+    "add_media_to_track",
+    "remove_media",
+    "duplicate_media",
+    "find_media_references",
+    # CLI
+    "app",
+    # Version
     "__version__",
-    "create_media_from_dict",
-    "detect_version",
 ]

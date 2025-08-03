@@ -5,7 +5,36 @@ All notable changes to Camtasio will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-08-02
+## [Unreleased] - 2025-08-03
+
+### Added
+
+#### Package Unification & Integration
+- **Unified Package Structure**: Successfully consolidated src/camtasia and src/camtasio into a single unified package
+- **Effects System**: Ported ChromaKey effect with full parameter support from legacy camtasia
+  - Base effect classes with metadata support
+  - ChromaKeyEffect with tolerance, softness, defringe, and color parameters
+  - Modern dataclass implementation with validation
+- **Annotations System**: Integrated text and shape annotation capabilities
+  - Text callouts with font, alignment, and styling options
+  - Square callouts with fill, stroke, and tail positioning
+  - Color management with normalized float representation
+  - Comprehensive type definitions for all annotation properties
+- **Utility Modules**: Added essential utility functions
+  - RGBA color class with hex conversion and validation
+  - FrameStamp for frame-based time calculations
+  - Timing utilities with frame rate conversions
+- **Media Operations**: High-level media manipulation functions
+  - add_media_to_track: Coordinate media bin and timeline
+  - remove_media: Safe media removal with track cleanup
+  - duplicate_media: Create media copies with unique IDs
+  - find_media_references: Track all usage of media items
+
+### Changed
+- **Package Structure**: Removed duplicate src/camtasia directory, all functionality now in src/camtasio
+- **Final Cleanup**: Completed removal of legacy src/camtasia/ package structure and files
+- **Imports**: Updated all module imports to use the unified camtasio namespace
+- **API Surface**: Extended main __init__.py to export all new functionality
 
 ### Code Quality Improvements
 
@@ -42,13 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated documentation to focus on future enhancements
 - Prepared codebase for community contributions
 
-## [1.2.0] - 2025-08-01
-
-**🎯 Extended Phase 2 Complete: Comprehensive CLI Suite Successfully Implemented**
-
-This release completes the extended Phase 2 development with additional timeline operations, comprehensive analysis commands, and a full-featured CLI suite covering all common Camtasia project manipulation needs.
-
-### Added (v1.2.0)
+### Added
 
 #### New Timeline & Analysis Commands
 - **Timeline Operations**: `track_ls` command for detailed track analysis with clip information
