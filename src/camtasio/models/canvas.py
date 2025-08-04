@@ -12,8 +12,8 @@ class Canvas:
     This is an immutable class - all operations return new instances.
     """
 
-    width: float
-    height: float
+    width: int
+    height: int
     frame_rate: int = 30
 
     def scale(self, factor: float) -> Self:
@@ -26,12 +26,12 @@ class Canvas:
             New Canvas instance with scaled dimensions
         """
         return self.__class__(
-            width=self.width * factor,
-            height=self.height * factor,
+            width=round(self.width * factor),
+            height=round(self.height * factor),
             frame_rate=self.frame_rate,  # Frame rate doesn't scale
         )
 
-    def resize(self, width: float | None = None, height: float | None = None) -> Self:
+    def resize(self, width: int | None = None, height: int | None = None) -> Self:
         """Return a new Canvas with specified dimensions.
 
         Args:
@@ -82,8 +82,8 @@ class Canvas:
             New Canvas instance
         """
         return cls(
-            width=float(data.get("width", 1920)),
-            height=float(data.get("height", 1080)),
+            width=int(data.get("width", 1920)),
+            height=int(data.get("height", 1080)),
             frame_rate=int(data.get("videoFormatFrameRate", 30)),
         )
 

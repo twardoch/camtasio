@@ -76,16 +76,7 @@ class TestProjectLoader:
             "height": 1080,
             "videoFormatFrameRate": 30,
             "sourceBin": [],
-            "timeline": {
-                "id": 1,
-                "sceneTrack": {
-                    "scenes": [{
-                        "csml": {
-                            "tracks": []
-                        }
-                    }]
-                }
-            }
+            "timeline": {"id": 1, "sceneTrack": {"scenes": [{"csml": {"tracks": []}}]}},
         }
 
         loader = ProjectLoader()
@@ -103,7 +94,7 @@ class TestProjectLoader:
             "width": 1920,
             "height": 1080,
             "sourceBin": [],
-            "timeline": {"id": 1}
+            "timeline": {"id": 1},
         }
 
         loader = ProjectLoader(strict_version_check=True)
@@ -120,10 +111,7 @@ class TestProjectLoader:
             "height": 1080,
             "videoFormatFrameRate": 30,
             "sourceBin": [],
-            "timeline": {
-                "id": 1,
-                "sceneTrack": {"scenes": [{"csml": {"tracks": []}}]}
-            }
+            "timeline": {"id": 1, "sceneTrack": {"scenes": [{"csml": {"tracks": []}}]}},
         }
 
         loader = ProjectLoader(strict_version_check=False)
@@ -140,13 +128,10 @@ class TestProjectLoader:
             "height": 1080,
             "videoFormatFrameRate": 30,
             "sourceBin": [],
-            "timeline": {
-                "id": 1,
-                "sceneTrack": {"scenes": [{"csml": {"tracks": []}}]}
-            }
+            "timeline": {"id": 1, "sceneTrack": {"scenes": [{"csml": {"tracks": []}}]}},
         }
 
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.tscproj', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".tscproj", delete=False) as f:
             json.dump(data, f)
             temp_path = Path(f.name)
 
@@ -177,16 +162,13 @@ class TestProjectLoader:
             "width": 1920,
             "height": 1080,
             "sourceBin": [],
-            "timeline": {"sceneTrack": {}}
+            "timeline": {"sceneTrack": {}},
         }
         errors = loader.validate_structure(valid_data)
         assert len(errors) == 0
 
         # Missing required fields for version 9.0
-        invalid_data = {
-            "version": "9.0",
-            "width": 1920
-        }
+        invalid_data = {"version": "9.0", "width": 1920}
         errors = loader.validate_structure(invalid_data)
         assert "editRate" in str(errors)
         assert "height" in str(errors)
@@ -198,7 +180,7 @@ class TestProjectLoader:
             "width": 1920,
             "height": 1080,
             "sourceBin": "not a list",  # Should be list
-            "timeline": []  # Should be dict
+            "timeline": [],  # Should be dict
         }
         errors = loader.validate_structure(wrong_type_data)
         assert "sourceBin must be a list" in errors
@@ -227,7 +209,7 @@ class TestProjectSaver:
         project = Project.empty(width=3840, height=2160)
         saver = ProjectSaver()
 
-        with tempfile.NamedTemporaryFile(suffix='.tscproj', delete=False) as f:
+        with tempfile.NamedTemporaryFile(suffix=".tscproj", delete=False) as f:
             temp_path = Path(f.name)
 
         try:
@@ -249,7 +231,7 @@ class TestProjectSaver:
         data = {"test": "data", "nested": {"value": 123}}
         saver = ProjectSaver()
 
-        with tempfile.NamedTemporaryFile(suffix='.json', delete=False) as f:
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
             temp_path = Path(f.name)
 
         try:
@@ -298,7 +280,7 @@ class TestProjectSaver:
         original.metadata.title = "Test Project"
         original.metadata.author = "Test Author"
 
-        with tempfile.NamedTemporaryFile(suffix='.tscproj', delete=False) as f:
+        with tempfile.NamedTemporaryFile(suffix=".tscproj", delete=False) as f:
             temp_path = Path(f.name)
 
         try:

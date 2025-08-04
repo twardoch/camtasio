@@ -83,7 +83,7 @@ class ProjectLoader:
             logger.error(f"Failed to load project: {e}")
             raise
 
-    def validate_structure(self, data: dict) -> list[str]:
+    def validate_structure(self, data: dict[str, Any]) -> list[str]:
         """Validate project structure and return any issues.
 
         Args:

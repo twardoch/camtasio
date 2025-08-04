@@ -89,7 +89,7 @@ def is_supported_version(data: dict[str, Any]) -> bool:
     return True
 
 
-def get_version_features(version: ProjectVersion) -> dict:
+def get_version_features(version: ProjectVersion) -> dict[str, bool]:
     """Get feature set for a specific version.
 
     Args:

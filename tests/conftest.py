@@ -3,27 +3,26 @@ import pathlib
 import pytest
 
 from camtasio.serialization import ProjectLoader
-from camtasio.models import Project
 
 
 @pytest.fixture
 def media_root(pytestconfig):
     root = pathlib.Path(str(pytestconfig.rootdir))
-    return root / 'tests' / 'resources' / 'media'
+    return root / "tests" / "resources" / "media"
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def simple_video_path(pytestconfig):
     "Path to simple_video.cmproj."
     root = pathlib.Path(str(pytestconfig.rootdir))
-    return root / 'tests' / 'resources' / 'simple-video.cmproj'
+    return root / "tests" / "resources" / "simple-video.cmproj"
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def simple_video(simple_video_path):
     "The 'simple-video' Project."
     loader = ProjectLoader()
-    return loader.load(simple_video_path / 'project.tscproj')
+    return loader.load(simple_video_path / "project.tscproj")
 
 
 @pytest.fixture

@@ -14,7 +14,7 @@ def add_media_to_track(
     media_id: str,
     start_frame: int,
     duration: int | None = None,
-    effects: Sequence[Any] | None = None
+    effects: Sequence[Any] | None = None,
 ) -> None:
     """Add media from media bin to a timeline track.
 
@@ -53,11 +53,7 @@ def add_media_to_track(
     logger.info(f"Successfully added media {media_id} to track {track_index}")
 
 
-def remove_media(
-    project: Any,
-    media_id: str,
-    clear_tracks: bool = True
-) -> None:
+def remove_media(project: Any, media_id: str, clear_tracks: bool = True) -> None:
     """Remove media from the media bin and optionally from all tracks.
 
     By default, this removes all references to the media from tracks.
@@ -81,9 +77,9 @@ def remove_media(
     # Find and handle track references
     track_references = []
     for track_idx, track in enumerate(project.timeline.tracks):
-        for track_media in track.medias:
-            if hasattr(track_media, 'source') and track_media.source == media_id:
-                track_references.append((track_idx, track_media.id))
+        for track_media_id, track_media in track.medias.items():
+            if hasattr(track_media, "source") and track_media.source == media_id:
+                track_references.append((track_idx, track_media_id))
 
     if track_references and not clear_tracks:
         raise ValueError(
@@ -103,11 +99,7 @@ def remove_media(
     logger.info(f"Successfully removed media {media_id} from project")
 
 
-def duplicate_media(
-    project: Any,
-    source_media_id: str,
-    new_media_id: str | None = None
-) -> str:
+def duplicate_media(project: Any, source_media_id: str, new_media_id: str | None = None) -> str:
     """Duplicate media in the media bin.
 
     Creates a copy of existing media with a new ID.
@@ -140,7 +132,10 @@ def duplicate_media(
 
     # Copy media
     source_media = project.media_bin[source_media_id]
-    project.media_bin[new_media_id] = source_media.copy()
+    duplicated_media = source_media.copy()
+    # Update the ID of the duplicated media
+    duplicated_media.id = new_media_id
+    project.media_bin[new_media_id] = duplicated_media
 
     logger.info(f"Duplicated media {source_media_id} as {new_media_id}")
     return new_media_id
@@ -164,9 +159,9 @@ def find_media_references(project: Any, media_id: str) -> list[tuple[int, str]]:
 
     references = []
     for track_idx, track in enumerate(project.timeline.tracks):
-        for track_media in track.medias:
-            if hasattr(track_media, 'source') and track_media.source == media_id:
-                references.append((track_idx, track_media.id))
+        for track_media_id, track_media in track.medias.items():
+            if hasattr(track_media, "source") and track_media.source == media_id:
+                references.append((track_idx, track_media_id))
 
     logger.debug(f"Found {len(references)} references to media {media_id}")
     return references

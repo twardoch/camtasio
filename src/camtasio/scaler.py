@@ -95,7 +95,7 @@ class TscprojScaler:
         else:
             return obj
 
-    def _scale_dict(self, d: dict, path: str) -> dict:
+    def _scale_dict(self, d: dict[str, Any], path: str) -> dict[str, Any]:
         """Scale a dictionary object.
 
         Args:
@@ -105,7 +105,7 @@ class TscprojScaler:
         Returns:
             Scaled dictionary
         """
-        result = {}
+        result: dict[str, Any] = {}
 
         for key, value in d.items():
             current_path = f"{path}.{key}" if path else key
@@ -144,7 +144,7 @@ class TscprojScaler:
 
         return result
 
-    def _scale_list(self, lst: list, path: str) -> list:
+    def _scale_list(self, lst: list[Any], path: str) -> list[Any]:
         """Scale a list object.
 
         Args:
@@ -178,7 +178,7 @@ class TscprojScaler:
 
         return scaled
 
-    def _scale_dimension_array(self, arr: list, path: str) -> list:
+    def _scale_dimension_array(self, arr: list[Any], path: str) -> list[Any]:
         """Scale a dimension array like rect or trackRect.
 
         Args:
@@ -197,7 +197,7 @@ class TscprojScaler:
             logger.warning(f"Unexpected array length at {path}: {len(arr)}")
             return arr
 
-    def _scale_def_object(self, def_obj: dict, path: str) -> dict:
+    def _scale_def_object(self, def_obj: dict[str, Any], path: str) -> dict[str, Any]:
         """Scale a definition object (like callout definitions).
 
         Args:
@@ -217,7 +217,7 @@ class TscprojScaler:
 
         return result
 
-    def _scale_keyframes(self, keyframes: list, path: str) -> list:
+    def _scale_keyframes(self, keyframes: list[Any], path: str) -> list[Any]:
         """Scale keyframe values if they contain scalable properties.
 
         Args:

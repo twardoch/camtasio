@@ -85,11 +85,11 @@ class FrameStamp:
     def __str__(self) -> str:
         """Format as 'seconds;frames' (Camtasia style)."""
         secs, frames = self.frame_time
-        return f'{int(secs.total_seconds())};{frames}'
+        return f"{int(secs.total_seconds())};{frames}"
 
     def __repr__(self) -> str:
         """Detailed representation."""
-        return f'FrameStamp(frame_number={self.frame_number}, frame_rate={self.frame_rate})'
+        return f"FrameStamp(frame_number={self.frame_number}, frame_rate={self.frame_rate})"
 
     def __lt__(self, other: FrameStamp) -> bool:
         """Compare by time value."""
@@ -120,8 +120,7 @@ class FrameStamp:
         if not isinstance(other, FrameStamp):
             return NotImplemented
         return self._add_frame_stamps(
-            self.frame_rate, self.frame_number,
-            other.frame_rate, other.frame_number
+            self.frame_rate, self.frame_number, other.frame_rate, other.frame_number
         )
 
     def __sub__(self, other: FrameStamp) -> FrameStamp:
@@ -129,14 +128,12 @@ class FrameStamp:
         if not isinstance(other, FrameStamp):
             return NotImplemented
         return self._add_frame_stamps(
-            self.frame_rate, self.frame_number,
-            other.frame_rate, -other.frame_number
+            self.frame_rate, self.frame_number, other.frame_rate, -other.frame_number
         )
 
     @staticmethod
     def _add_frame_stamps(
-        frame_rate_1: int, frame_number_1: int,
-        frame_rate_2: int, frame_number_2: int
+        frame_rate_1: int, frame_number_1: int, frame_rate_2: int, frame_number_2: int
     ) -> FrameStamp:
         """Add two frame stamps with different frame rates.
 
@@ -151,8 +148,7 @@ class FrameStamp:
         frame_2_scaled = (common_frame_rate // frame_rate_2) * frame_number_2
 
         return FrameStamp(
-            frame_number=frame_1_scaled + frame_2_scaled,
-            frame_rate=common_frame_rate
+            frame_number=frame_1_scaled + frame_2_scaled, frame_rate=common_frame_rate
         )
 
     def to_frame_rate(self, new_frame_rate: int) -> FrameStamp:
@@ -166,10 +162,7 @@ class FrameStamp:
         """
         seconds = self.total_seconds
         new_frame_number = round(seconds * new_frame_rate)
-        return FrameStamp(
-            frame_number=new_frame_number,
-            frame_rate=new_frame_rate
-        )
+        return FrameStamp(frame_number=new_frame_number, frame_rate=new_frame_rate)
 
 
 def _lcm(a: int, b: int) -> int:

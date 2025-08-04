@@ -67,7 +67,9 @@ class Media(ABC):
 
         return scaled
 
-    def _scale_keyframes_spatial(self, keyframes: list[dict[str, Any]], factor: float) -> list[dict[str, Any]]:
+    def _scale_keyframes_spatial(
+        self, keyframes: list[dict[str, Any]], factor: float
+    ) -> list[dict[str, Any]]:
         """Scale spatial values in keyframes."""
         scaled_keyframes = []
         for kf in keyframes:
@@ -77,7 +79,9 @@ class Media(ABC):
             scaled_keyframes.append(new_kf)
         return scaled_keyframes
 
-    def _scale_keyframes_temporal(self, keyframes: list[dict[str, Any]], factor: float) -> list[dict[str, Any]]:
+    def _scale_keyframes_temporal(
+        self, keyframes: list[dict[str, Any]], factor: float
+    ) -> list[dict[str, Any]]:
         """Scale temporal values in keyframes."""
         scaled_keyframes = []
         for kf in keyframes:

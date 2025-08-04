@@ -1,7 +1,7 @@
 # this_file: src/camtasio/models/factory.py
 """Factory functions for creating model instances from JSON data."""
 
-from typing import Any
+from typing import Any, cast
 
 from loguru import logger
 
@@ -66,10 +66,10 @@ def create_media_from_dict(data: dict[str, Any]) -> Media:
         return Callout(**common_fields, definition=data.get("def", {}))
     else:
         # VideoMedia or default
-        return media_class(**common_fields)
+        return cast(Media, media_class(**common_fields))
 
 
-def detect_media_type(source_item: dict) -> str:
+def detect_media_type(source_item: dict[str, Any]) -> str:
     """Detect media type from source item data.
 
     Args:

@@ -2,7 +2,7 @@
 """Project model representing a complete Camtasia project."""
 
 from dataclasses import dataclass, field
-from typing import Self
+from typing import Any, Self, cast
 
 from loguru import logger
 
@@ -26,7 +26,7 @@ class ProjectMetadata:
     allow_sub_frame_editing: bool = False
     authoring_client_name: dict[str, str] = field(default_factory=dict)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         result = {
             "title": self.title,
@@ -47,7 +47,7 @@ class ProjectMetadata:
         return result
 
     @classmethod
-    def from_dict(cls, data: dict) -> Self:
+    def from_dict(cls, data: dict[str, Any]) -> Self:
         """Create ProjectMetadata from dictionary."""
         return cls(
             title=data.get("title", ""),
@@ -93,25 +93,31 @@ class Project:
         """Scale all spatial properties in the project."""
         logger.info(f"Scaling project spatially by {factor}x")
 
-        return Project(
-            canvas=self.canvas.scale(factor),
-            source_bin=self.source_bin.scale_spatial(factor),
-            timeline=self.timeline.scale_spatial(factor),
-            metadata=self.metadata,  # Metadata doesn't scale
+        return cast(
+            Self,
+            Project(
+                canvas=self.canvas.scale(factor),
+                source_bin=self.source_bin.scale_spatial(factor),
+                timeline=self.timeline.scale_spatial(factor),
+                metadata=self.metadata,  # Metadata doesn't scale
+            ),
         )
 
     def scale_temporal(self, factor: float) -> Self:
         """Scale all temporal properties in the project."""
         logger.info(f"Scaling project temporally by {factor}x")
 
-        return Project(
-            canvas=self.canvas,  # Canvas doesn't scale temporally
-            source_bin=self.source_bin,  # Source bin doesn't scale temporally
-            timeline=self.timeline.scale_temporal(factor),
-            metadata=self.metadata,  # Metadata doesn't scale
+        return cast(
+            Self,
+            Project(
+                canvas=self.canvas,  # Canvas doesn't scale temporally
+                source_bin=self.source_bin,  # Source bin doesn't scale temporally
+                timeline=self.timeline.scale_temporal(factor),
+                metadata=self.metadata,  # Metadata doesn't scale
+            ),
         )
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         # Merge canvas and metadata properties at root level
         result = self.metadata.to_dict()
@@ -129,7 +135,7 @@ class Project:
         return result
 
     @classmethod
-    def from_dict(cls, data: dict) -> Self:
+    def from_dict(cls, data: dict[str, Any]) -> Self:
         """Create Project from dictionary.
 
         Args:

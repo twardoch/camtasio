@@ -17,17 +17,17 @@ from .transforms import PropertyTransformer, TransformConfig, TransformType
 console = Console()
 
 
-def version():
+def version() -> None:
     """Display version information."""
     console.print(
         Panel.fit(
-            f"[bold cyan]tscprojpy[/bold cyan] version [bold green]{__version__}[/bold green]",
+            f"[bold cyan]camtasio[/bold cyan] version [bold green]{__version__}[/bold green]",
             title="Version Info",
         )
     )
 
 
-def hello(name: str = "World"):
+def hello(name: str = "World") -> None:
     """Say hello to someone.
 
     Args:
@@ -38,7 +38,7 @@ def hello(name: str = "World"):
 
 def xyscale(
     input: str, scale: float, output: str | None = None, verbose: bool = False, direct: bool = True
-):
+) -> None:
     """Scale a Camtasia .tscproj file by a given factor.
 
     Args:
@@ -145,7 +145,7 @@ def xyscale(
         raise
 
 
-def timescale(input: str, scale: float, output: str | None = None, verbose: bool = False):
+def timescale(input: str, scale: float, output: str | None = None, verbose: bool = False) -> None:
     """Scale the timeline of a Camtasia .tscproj file, preserving audio duration.
 
     Args:
@@ -242,7 +242,7 @@ def timescale(input: str, scale: float, output: str | None = None, verbose: bool
         raise
 
 
-def main():
+def main() -> None:
     """Main entry point for the CLI."""
     fire.Fire(
         {

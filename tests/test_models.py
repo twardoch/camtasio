@@ -54,7 +54,7 @@ class TestCanvas:
     def test_canvas_properties(self):
         """Test canvas computed properties."""
         landscape = Canvas(1920, 1080)
-        assert landscape.aspect_ratio == pytest.approx(16/9)
+        assert landscape.aspect_ratio == pytest.approx(16 / 9)
         assert landscape.is_landscape
         assert not landscape.is_portrait
         assert not landscape.is_square
@@ -70,11 +70,7 @@ class TestCanvas:
         canvas = Canvas(1920, 1080, 60)
         data = canvas.to_dict()
 
-        assert data == {
-            "width": 1920,
-            "height": 1080,
-            "videoFormatFrameRate": 60
-        }
+        assert data == {"width": 1920, "height": 1080, "videoFormatFrameRate": 60}
 
         restored = Canvas.from_dict(data)
         assert restored.width == canvas.width
@@ -99,7 +95,7 @@ class TestSourceTrack:
             range=[0, 1000],
             type=0,  # video
             edit_rate=60,
-            track_rect=[0, 0, 1920, 1080]
+            track_rect=[0, 0, 1920, 1080],
         )
         assert track.is_video
         assert not track.is_audio
@@ -125,7 +121,7 @@ class TestSourceTrack:
             track_rect=[0, 0, 1920, 1080],
             sample_rate=48000,
             bit_depth=16,
-            num_channels=2
+            num_channels=2,
         )
         data = track.to_dict()
         restored = SourceTrack.from_dict(data)
@@ -141,10 +137,7 @@ class TestSourceItem:
     def test_create_source_item(self):
         """Test source item creation."""
         item = SourceItem(
-            id=1,
-            src="/path/to/video.mp4",
-            rect=[0, 0, 1920, 1080],
-            last_mod="2025-01-29T12:00:00Z"
+            id=1, src="/path/to/video.mp4", rect=[0, 0, 1920, 1080], last_mod="2025-01-29T12:00:00Z"
         )
         assert item.id == 1
         assert item.width == 1920
@@ -158,7 +151,7 @@ class TestSourceItem:
             src="test.mp4",
             rect=[0, 0, 1920, 1080],
             last_mod="2025-01-29",
-            source_tracks=[track]
+            source_tracks=[track],
         )
 
         scaled = item.scale_spatial(2.0)
@@ -185,11 +178,7 @@ class TestMedia:
 
     def test_video_media_scale_spatial(self):
         """Test video media spatial scaling."""
-        media = VideoMedia(
-            id=1,
-            src=1,
-            parameters={"translation0": 100, "scale0": 1.0}
-        )
+        media = VideoMedia(id=1, src=1, parameters={"translation0": 100, "scale0": 1.0})
 
         scaled = media.scale_spatial(2.0)
         assert scaled.parameters["translation0"] == 200
@@ -197,14 +186,7 @@ class TestMedia:
 
     def test_video_media_scale_temporal(self):
         """Test video media temporal scaling."""
-        media = VideoMedia(
-            id=1,
-            src=1,
-            start=100,
-            duration=200,
-            media_start=0,
-            media_duration=200
-        )
+        media = VideoMedia(id=1, src=1, start=100, duration=200, media_start=0, media_duration=200)
 
         scaled = media.scale_temporal(2.0)
         assert scaled.start == 200
@@ -214,14 +196,7 @@ class TestMedia:
 
     def test_audio_media_preserves_duration(self):
         """Test audio media preserves duration on temporal scale."""
-        media = AudioMedia(
-            id=1,
-            src=2,
-            start=100,
-            duration=200,
-            media_start=0,
-            media_duration=200
-        )
+        media = AudioMedia(id=1, src=2, start=100, duration=200, media_start=0, media_duration=200)
 
         scaled = media.scale_temporal(2.0)
         assert scaled.start == 200  # Position scaled
@@ -237,11 +212,7 @@ class TestMedia:
 
     def test_callout_scale_spatial(self):
         """Test callout spatial scaling."""
-        callout = Callout(
-            id=1,
-            src=0,
-            definition={"width": 100, "height": 50, "corner-radius": 5}
-        )
+        callout = Callout(id=1, src=0, definition={"width": 100, "height": 50, "corner-radius": 5})
 
         scaled = callout.scale_spatial(2.0)
         assert scaled.definition["width"] == 200
@@ -295,11 +266,7 @@ class TestProject:
 
     def test_project_metadata(self):
         """Test project metadata."""
-        metadata = ProjectMetadata(
-            title="Test Project",
-            author="Test Author",
-            version="9.0"
-        )
+        metadata = ProjectMetadata(title="Test Project", author="Test Author", version="9.0")
         assert metadata.title == "Test Project"
         assert metadata.edit_rate == 705600000  # Default
 
@@ -334,10 +301,14 @@ class TestProject:
 
         # Add media to timeline
         track = Track(track_index=0)
-        track.add_media(VideoMedia(
-            id=1, src=1, start=0,
-            duration=project.edit_rate * 10  # 10 seconds
-        ))
+        track.add_media(
+            VideoMedia(
+                id=1,
+                src=1,
+                start=0,
+                duration=project.edit_rate * 10,  # 10 seconds
+            )
+        )
         project.timeline.add_track(track)
 
         assert project.duration == pytest.approx(10.0)

@@ -23,7 +23,7 @@ def text_callout(
     width: float = 400.0,
     horizontal_alignment: HorizontalAlignment = HorizontalAlignment.CENTER,
     vertical_alignment: VerticalAlignment = VerticalAlignment.CENTER,
-    line_spacing: float = 0.0
+    line_spacing: float = 0.0,
 ) -> dict[str, Any]:
     """Create a text callout annotation.
 
@@ -64,19 +64,12 @@ def text_callout(
             "size": float(font_size),
             "tracking": 0.0,
             "name": str(font_name),
-            "weight": str(font_weight)
+            "weight": str(font_weight),
         },
         "textAttributes": {
             "type": "textAttributeList",
-            "keyframes": [
-                {
-                    "endTime": 0,
-                    "time": 0,
-                    "value": None,
-                    "duration": 0
-                }
-            ]
-        }
+            "keyframes": [{"endTime": 0, "time": 0, "value": None, "duration": 0}],
+        },
     }
 
 
@@ -97,7 +90,7 @@ def square_callout(
     vertical_alignment: VerticalAlignment = VerticalAlignment.CENTER,
     line_spacing: float = 0.0,
     tail_x: float = 0.0,
-    tail_y: float = -20.0
+    tail_y: float = -20.0,
 ) -> dict[str, Any]:
     """Create a square callout annotation with optional tail.
 
@@ -163,17 +156,10 @@ def square_callout(
             "size": float(font_size),
             "tracking": 0.0,
             "name": str(font_name),
-            "weight": str(font_weight)
+            "weight": str(font_weight),
         },
         "textAttributes": {
             "type": "textAttributeList",
-            "keyframes": [
-                {
-                    "endTime": 0,
-                    "time": 0,
-                    "value": None,
-                    "duration": 0
-                }
-            ]
-        }
+            "keyframes": [{"endTime": 0, "time": 0, "value": None, "duration": 0}],
+        },
     }

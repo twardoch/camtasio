@@ -64,12 +64,11 @@ camtasio analyze my_project.tscproj
 ### Python API
 
 ```python
-from camtasio.serialization import ProjectLoader, ProjectSaver
-from camtasio.transforms.engine import PropertyTransformer, TransformConfig, TransformType
+from camtasio import ProjectLoader, ProjectSaver, PropertyTransformer, TransformConfig, TransformType
+from camtasio.serialization import load_json_file
 
-# Load a project
-loader = ProjectLoader()
-project_data = loader.load("my_project.tscproj")
+# Load a project (low-level JSON approach)
+project_data = load_json_file("my_project.tscproj")
 
 # Scale spatially using transform engine
 config = TransformConfig(TransformType.SPATIAL, factor=1.5)
@@ -78,6 +77,21 @@ scaled_data = transformer.transform_dict(project_data)
 
 # Save result
 saver = ProjectSaver()
+saver.save_dict(scaled_data, "scaled_project.tscproj")
+
+# Alternative: Using high-level Project model
+from camtasio import Project
+
+# Load using model-based approach  
+loader = ProjectLoader()
+project_data = loader.load("my_project.tscproj")
+project = Project.from_dict(project_data)
+
+# Scale the project
+scaled_project = project.scale_spatial(1.5)
+
+# Convert back to dict and save
+scaled_data = scaled_project.to_dict()
 saver.save_dict(scaled_data, "scaled_project.tscproj")
 ```
 
@@ -118,38 +132,88 @@ The `.tscproj` file contains:
 Resize projects while maintaining relative positions and proportions:
 
 ```python
-from camtasio import Project
+from camtasio import ProjectLoader, ProjectSaver, Project
 
-project = Project("tutorial.cmproj")
-# Scale from 1080p to 4K
-project.scale(3840, 2160, preserve_aspect_ratio=True)
-project.save()
+# Load project
+loader = ProjectLoader()
+project_data = loader.load("tutorial.tscproj")
+project = Project.from_dict(project_data)
+
+# Calculate scale factor for 1080p to 4K conversion
+current_width = project.canvas.width  # e.g., 1920
+target_width = 3840
+scale_factor = target_width / current_width
+
+# Scale the project
+scaled_project = project.scale_spatial(scale_factor)
+
+# Save result
+saver = ProjectSaver()
+saver.save_dict(scaled_project.to_dict(), "tutorial_4k.tscproj")
 ```
 
 ### Timeline Manipulation
 
 ```python
-# Add a new marker
-project.timeline.add_marker(time=5.0, value="Important Point")
+from camtasio.serialization import load_json_file
 
-# Find all video clips
-for track in project.timeline.tracks:
-    for clip in track.clips:
-        if clip.media_type == "video":
-            print(f"Video: {clip.name} at {clip.start_time}")
+# Load project data for analysis
+project_data = load_json_file("tutorial.tscproj")
+
+# Analyze timeline structure
+timeline = project_data.get("timeline", {})
+scene_track = timeline.get("sceneTrack", {})
+scenes = scene_track.get("scenes", [])
+
+for scene_idx, scene in enumerate(scenes):
+    print(f"Scene {scene_idx}: {scene.get('csml', {}).get('duration', 0)} duration")
+    
+    # Analyze tracks within scene
+    tracks = scene.get("csml", {}).get("tracks", [])
+    for track_idx, track in enumerate(tracks):
+        track_id = track.get("trackId", "unknown")
+        print(f"  Track {track_idx} (ID: {track_id})")
+        
+        # Analyze media clips
+        for media_clip in track.get("medias", []):
+            clip_name = media_clip.get("_name", "unnamed")
+            start = media_clip.get("_start", 0)
+            duration = media_clip.get("_duration", 0)
+            print(f"    Clip: {clip_name} (start: {start}, duration: {duration})")
 ```
 
 ### Media Management
 
 ```python
-# List all media files
-for media in project.media_bin:
-    print(f"{media.name}: {media.path}")
+from pathlib import Path
+from camtasio.serialization import load_json_file
+
+# Load and analyze media bin
+project_data = load_json_file("tutorial.tscproj")
+source_bin = project_data.get("sourceBin", [])
+
+print(f"Total media items: {len(source_bin)}")
+
+# List all media files and check existence
+missing_files = []
+for item in source_bin:
+    name = item.get("_name", "unnamed")
+    media_type = item.get("_type", "unknown")
     
-# Check for missing media
-missing = project.find_missing_media()
-if missing:
-    print(f"Warning: {len(missing)} files not found")
+    if "src" in item:
+        media_path = Path(item["src"])
+        exists = media_path.exists()
+        status = "✓" if exists else "✗"
+        
+        print(f"{status} {name} ({media_type}): {media_path}")
+        
+        if not exists:
+            missing_files.append(str(media_path))
+    else:
+        print(f"? {name} ({media_type}): No source path")
+
+if missing_files:
+    print(f"\nWarning: {len(missing_files)} files not found!")
 ```
 
 ## Architecture

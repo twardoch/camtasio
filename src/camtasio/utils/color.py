@@ -70,7 +70,7 @@ class RGBA:
             ("red", self.red),
             ("green", self.green),
             ("blue", self.blue),
-            ("alpha", self.alpha)
+            ("alpha", self.alpha),
         ]:
             if not (self.MINIMUM_CHANNEL <= value <= self.MAXIMUM_CHANNEL):
                 raise ValueError(

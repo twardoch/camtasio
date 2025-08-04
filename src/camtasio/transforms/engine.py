@@ -3,7 +3,7 @@
 
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Any
+from typing import Any, cast
 
 from loguru import logger
 
@@ -47,6 +47,10 @@ class PropertyTransformer:
         Returns:
             New transformed project instance
         """
+        # Validate scale factor
+        if self.config.factor <= 0:
+            raise ValueError(f"Scale factor must be positive, got {self.config.factor}")
+
         if self.config.verbose:
             logger.info(
                 f"Applying {self.config.transform_type.name} transform with factor {self.config.factor}"
@@ -91,7 +95,7 @@ class PropertyTransformer:
         # The Media models already handle audio preservation
         return project.scale_temporal(self.config.factor)
 
-    def transform_dict(self, data: dict) -> dict:
+    def transform_dict(self, data: dict[str, Any]) -> dict[str, Any]:
         """Apply transformation to raw dictionary data.
 
         This is for direct JSON manipulation without domain models.
@@ -102,6 +106,10 @@ class PropertyTransformer:
         Returns:
             Transformed dictionary
         """
+        # Validate scale factor
+        if self.config.factor <= 0:
+            raise ValueError(f"Scale factor must be positive, got {self.config.factor}")
+
         if self.config.transform_type == TransformType.SPATIAL:
             return self._transform_dict_spatial(data)
         elif self.config.transform_type == TransformType.TEMPORAL:
@@ -109,7 +117,7 @@ class PropertyTransformer:
         else:
             raise ValueError(f"Unknown transform type: {self.config.transform_type}")
 
-    def _transform_dict_spatial(self, data: dict) -> dict:
+    def _transform_dict_spatial(self, data: dict[str, Any]) -> dict[str, Any]:
         """Apply spatial transformation to dictionary.
 
         Args:
@@ -175,9 +183,9 @@ class PropertyTransformer:
             else:
                 return obj
 
-        return transform_dict_recursive(data)
+        return cast(dict[str, Any], transform_dict_recursive(data))
 
-    def _transform_dict_temporal(self, data: dict) -> dict:
+    def _transform_dict_temporal(self, data: dict[str, Any]) -> dict[str, Any]:
         """Apply temporal transformation to dictionary.
 
         Args:
@@ -195,6 +203,8 @@ class PropertyTransformer:
             "trimStartSum",
             "time",
             "endTime",
+            "markIn",
+            "markOut",
         }
 
         def should_scale_temporal(parent_type: str, key: str) -> bool:
@@ -212,14 +222,25 @@ class PropertyTransformer:
         def transform_dict_recursive(obj: Any, parent_type: str | None = None) -> Any:
             """Recursively transform dictionary values."""
             if isinstance(obj, dict):
-                result = {}
+                result: dict[str, Any] = {}
                 current_type = obj.get("_type", parent_type)
 
                 for key, value in obj.items():
                     if key == "range" and isinstance(value, list) and len(value) == 2:
                         # Scale time ranges [start, end]
                         result[key] = [int(v * self.config.factor) for v in value]
-                    elif should_scale_temporal(current_type, key) and isinstance(
+                    elif key == "keyframes" and isinstance(value, list):
+                        # Special handling for keyframes list
+                        result[key] = [
+                            {
+                                k: int(v * self.config.factor) if k == "time" and isinstance(v, int | float) else v
+                                for k, v in item.items()
+                            }
+                            if isinstance(item, dict)
+                            else item
+                            for item in value
+                        ]
+                    elif current_type is not None and should_scale_temporal(current_type, key) and isinstance(
                         value, int | float
                     ):
                         result[key] = int(value * self.config.factor)
@@ -233,4 +254,4 @@ class PropertyTransformer:
             else:
                 return obj
 
-        return transform_dict_recursive(data)
+        return cast(dict[str, Any], transform_dict_recursive(data))

@@ -26,11 +26,11 @@ class CamtasioCLI:
             project_path: Path to .tscproj file
             detailed: Show detailed analysis including media usage and complexity metrics
         """
-        project_path = Path(project_path)
+        path = Path(project_path)
 
         try:
             # Load raw JSON data for CLI info display
-            project_data = load_json_file(project_path)
+            project_data = load_json_file(path)
             version = detect_version(project_data)
 
             # Extract basic info
@@ -40,7 +40,7 @@ class CamtasioCLI:
             framerate = canvas.get("framerate", "Unknown")
 
             console.print("[bold blue]═══ Project Information ═══[/]")
-            console.print(f"[bold]Project:[/] {project_path}")
+            console.print(f"[bold]Project:[/] {path}")
             console.print(f"[bold]Version:[/] {version}")
             console.print(f"[bold]Canvas:[/] {width}x{height} @ {framerate}fps")
 
@@ -167,15 +167,15 @@ class CamtasioCLI:
 
         except Exception as e:
             console.print(f"[red]Error:[/] Failed to load project: {e}")
-            logger.error(f"Failed to load project {project_path}: {e}")
+            logger.error(f"Failed to load project {path}: {e}")
 
     def validate(self, project_path: str) -> None:
         """Check project integrity and compatibility."""
-        project_path = Path(project_path)
+        path = Path(project_path)
 
         try:
             # Load raw JSON data for validation
-            project_data = load_json_file(project_path)
+            project_data = load_json_file(path)
             version = detect_version(project_data)
 
             console.print("[green]✓[/] Project loads successfully")
@@ -200,7 +200,7 @@ class CamtasioCLI:
 
         except Exception as e:
             console.print(f"[red]✗[/] Validation failed: {e}")
-            logger.error(f"Validation failed for {project_path}: {e}")
+            logger.error(f"Validation failed for {path}: {e}")
 
     def xyscale(
         self, input_path: str, scale: float, output_path: str | None = None, backup: bool = True
@@ -213,24 +213,24 @@ class CamtasioCLI:
             output_path: Path for output file (default: overwrite input)
             backup: Create backup before modifying (default: True)
         """
-        input_path = Path(input_path)
+        input_file = Path(input_path)
 
         if output_path:
-            output_path = Path(output_path)
+            output_file = Path(output_path)
         else:
-            output_path = input_path
+            output_file = input_file
 
         try:
             with console.status(f"[bold green]Scaling project by {scale}x..."):
                 # Load raw JSON data for scaling
-                project_data = load_json_file(input_path)
+                project_data = load_json_file(input_file)
 
                 # Create backup if requested and modifying in place
-                if backup and output_path == input_path:
-                    backup_path = input_path.with_suffix(f"{input_path.suffix}.backup")
+                if backup and output_file == input_file:
+                    backup_path = input_file.with_suffix(f"{input_file.suffix}.backup")
                     import shutil
 
-                    shutil.copy2(input_path, backup_path)
+                    shutil.copy2(input_file, backup_path)
                     logger.debug(f"Created backup at {backup_path}")
 
                 # Scale the project using TscprojScaler class
@@ -239,16 +239,16 @@ class CamtasioCLI:
 
                 # Save result
                 saver = ProjectSaver()
-                saver.save_dict(scaled_data, output_path)
+                saver.save_dict(scaled_data, output_file)
 
             console.print(f"[green]✓[/] Scaled project by {scale}x")
-            if output_path != input_path:
-                console.print(f"[green]✓[/] Saved to {output_path}")
-            logger.info(f"Successfully scaled {input_path} by {scale}x")
+            if output_file != input_file:
+                console.print(f"[green]✓[/] Saved to {output_file}")
+            logger.info(f"Successfully scaled {input_file} by {scale}x")
 
         except Exception as e:
             console.print(f"[red]Error:[/] Scaling failed: {e}")
-            logger.error(f"Failed to scale {input_path}: {e}")
+            logger.error(f"Failed to scale {input_file}: {e}")
 
     def timescale(
         self,
@@ -267,24 +267,24 @@ class CamtasioCLI:
             backup: Create backup before modifying (default: True)
             preserve_audio: Preserve audio duration when scaling (default: True)
         """
-        input_path = Path(input_path)
+        input_file = Path(input_path)
 
         if output_path:
-            output_path = Path(output_path)
+            output_file = Path(output_path)
         else:
-            output_path = input_path
+            output_file = input_file
 
         try:
             with console.status(f"[bold green]Scaling timeline by {scale}x..."):
                 # Load raw JSON data for temporal scaling
-                project_data = load_json_file(input_path)
+                project_data = load_json_file(input_file)
 
                 # Create backup if requested and modifying in place
-                if backup and output_path == input_path:
-                    backup_path = input_path.with_suffix(f"{input_path.suffix}.backup")
+                if backup and output_file == input_file:
+                    backup_path = input_file.with_suffix(f"{input_file.suffix}.backup")
                     import shutil
 
-                    shutil.copy2(input_path, backup_path)
+                    shutil.copy2(input_file, backup_path)
                     logger.debug(f"Created backup at {backup_path}")
 
                 # Create temporal transform configuration
@@ -301,18 +301,18 @@ class CamtasioCLI:
 
                 # Save result
                 saver = ProjectSaver()
-                saver.save_dict(scaled_data, output_path)
+                saver.save_dict(scaled_data, output_file)
 
             console.print(f"[green]✓[/] Scaled timeline by {scale}x")
             if preserve_audio:
                 console.print("[green]✓[/] Audio duration preserved")
-            if output_path != input_path:
-                console.print(f"[green]✓[/] Saved to {output_path}")
-            logger.info(f"Successfully scaled timeline {input_path} by {scale}x")
+            if output_file != input_file:
+                console.print(f"[green]✓[/] Saved to {output_file}")
+            logger.info(f"Successfully scaled timeline {input_file} by {scale}x")
 
         except Exception as e:
             console.print(f"[red]Error:[/] Timeline scaling failed: {e}")
-            logger.error(f"Failed to scale timeline {input_path}: {e}")
+            logger.error(f"Failed to scale timeline {input_file}: {e}")
 
     def batch(self, pattern: str, operation: str, *args: Any, **kwargs: Any) -> None:
         """Process multiple files with batch operations.
@@ -406,15 +406,15 @@ class CamtasioCLI:
             project_path: Path to .tscproj file
             detailed: Show detailed media information
         """
-        project_path = Path(project_path)
+        path = Path(project_path)
 
         try:
-            project_data = load_json_file(project_path)
+            project_data = load_json_file(path)
 
             source_bin = project_data.get("sourceBin", [])
 
             console.print("[bold blue]═══ Media Bin Contents ═══[/]")
-            console.print(f"[bold]Project:[/] {project_path}")
+            console.print(f"[bold]Project:[/] {path}")
             console.print(f"[bold]Media Items:[/] {len(source_bin)}")
 
             if not source_bin:
@@ -452,7 +452,7 @@ class CamtasioCLI:
 
         except Exception as e:
             console.print(f"[red]Error:[/] Failed to list media: {e}")
-            logger.error(f"Failed to list media for {project_path}: {e}")
+            logger.error(f"Failed to list media for {path}: {e}")
 
     def media_rm(self, project_path: str, unused_only: bool = True, backup: bool = True) -> None:
         """Remove unused media from project.
@@ -462,10 +462,10 @@ class CamtasioCLI:
             unused_only: Only remove unused media items (default: True)
             backup: Create backup before modifying (default: True)
         """
-        project_path = Path(project_path)
+        path = Path(project_path)
 
         try:
-            project_data = load_json_file(project_path)
+            project_data = load_json_file(path)
 
             source_bin = project_data.get("sourceBin", [])
 
@@ -514,10 +514,10 @@ class CamtasioCLI:
 
             # Create backup if requested
             if backup:
-                backup_path = project_path.with_suffix(f"{project_path.suffix}.backup")
+                backup_path = path.with_suffix(f"{path.suffix}.backup")
                 import shutil
 
-                shutil.copy2(project_path, backup_path)
+                shutil.copy2(path, backup_path)
                 logger.debug(f"Created backup at {backup_path}")
 
             # Remove unused media (in reverse order to maintain indices)
@@ -526,15 +526,17 @@ class CamtasioCLI:
 
             # Save modified project
             saver = ProjectSaver()
-            saver.save_dict(project_data, project_path)
+            saver.save_dict(project_data, path)
 
             console.print(f"[green]✓ Removed {len(unused_media)} unused media items[/]")
 
         except Exception as e:
             console.print(f"[red]Error:[/] Failed to remove media: {e}")
-            logger.error(f"Failed to remove media from {project_path}: {e}")
+            logger.error(f"Failed to remove media from {path}: {e}")
 
-    def media_replace(self, project_path: str, old_path: str, new_path: str, backup: bool = True) -> None:
+    def media_replace(
+        self, project_path: str, old_path: str, new_path: str, backup: bool = True
+    ) -> None:
         """Replace media file paths in project.
 
         Args:
@@ -543,24 +545,24 @@ class CamtasioCLI:
             new_path: New media file path
             backup: Create backup before modifying (default: True)
         """
-        project_path = Path(project_path)
+        path = Path(project_path)
         old_path = str(old_path)
         new_path = str(new_path)
 
         try:
-            project_data = load_json_file(project_path)
+            project_data = load_json_file(path)
 
             # Create backup if requested
             if backup:
-                backup_path = project_path.with_suffix(f"{project_path.suffix}.backup")
+                backup_path = path.with_suffix(f"{path.suffix}.backup")
                 import shutil
 
-                shutil.copy2(project_path, backup_path)
+                shutil.copy2(path, backup_path)
                 logger.debug(f"Created backup at {backup_path}")
 
             replacements = 0
 
-            def replace_in_dict(obj):
+            def replace_in_dict(obj: Any) -> None:
                 nonlocal replacements
                 if isinstance(obj, dict):
                     for key, value in obj.items():
@@ -582,7 +584,7 @@ class CamtasioCLI:
 
             # Save modified project
             saver = ProjectSaver()
-            saver.save_dict(project_data, project_path)
+            saver.save_dict(project_data, path)
 
             console.print(
                 f"[green]✓ Replaced {replacements} instances of '{old_path}' with '{new_path}'[/]"
@@ -590,7 +592,7 @@ class CamtasioCLI:
 
         except Exception as e:
             console.print(f"[red]Error:[/] Failed to replace media path: {e}")
-            logger.error(f"Failed to replace media path in {project_path}: {e}")
+            logger.error(f"Failed to replace media path in {path}: {e}")
 
     def track_ls(self, project_path: str, detailed: bool = False) -> None:
         """List timeline tracks.
@@ -599,15 +601,15 @@ class CamtasioCLI:
             project_path: Path to .tscproj file
             detailed: Show detailed track information
         """
-        project_path = Path(project_path)
+        path = Path(project_path)
 
         try:
-            project_data = load_json_file(project_path)
+            project_data = load_json_file(path)
 
             tracks = project_data.get("timeline", {}).get("sceneTrack", {}).get("scenes", [])
 
             console.print("[bold blue]═══ Timeline Tracks ═══[/]")
-            console.print(f"[bold]Project:[/] {project_path}")
+            console.print(f"[bold]Project:[/] {path}")
 
             if not tracks:
                 console.print("[yellow]No timeline tracks found[/]")
@@ -647,7 +649,7 @@ class CamtasioCLI:
 
         except Exception as e:
             console.print(f"[red]Error:[/] Failed to list tracks: {e}")
-            logger.error(f"Failed to list tracks for {project_path}: {e}")
+            logger.error(f"Failed to list tracks for {path}: {e}")
 
     def marker_ls(self, project_path: str) -> None:
         """List timeline markers.
@@ -655,17 +657,17 @@ class CamtasioCLI:
         Args:
             project_path: Path to .tscproj file
         """
-        project_path = Path(project_path)
+        path = Path(project_path)
 
         try:
-            project_data = load_json_file(project_path)
+            project_data = load_json_file(path)
 
             # Look for markers in timeline
             timeline = project_data.get("timeline", {})
             markers = timeline.get("markers", [])
 
             console.print("[bold blue]═══ Timeline Markers ═══[/]")
-            console.print(f"[bold]Project:[/] {project_path}")
+            console.print(f"[bold]Project:[/] {path}")
             console.print(f"[bold]Total Markers:[/] {len(markers)}")
 
             if not markers:
@@ -681,7 +683,7 @@ class CamtasioCLI:
 
         except Exception as e:
             console.print(f"[red]Error:[/] Failed to list markers: {e}")
-            logger.error(f"Failed to list markers for {project_path}: {e}")
+            logger.error(f"Failed to list markers for {path}: {e}")
 
     def analyze(self, project_path: str) -> None:
         """Generate comprehensive project analysis report.
@@ -689,15 +691,15 @@ class CamtasioCLI:
         Args:
             project_path: Path to .tscproj file
         """
-        project_path = Path(project_path)
+        path = Path(project_path)
 
         try:
-            project_data = load_json_file(project_path)
+            project_data = load_json_file(path)
 
             version = detect_version(project_data)
 
             console.print("[bold blue]═══ Project Analysis Report ═══[/]")
-            console.print(f"[bold]Project:[/] {project_path}")
+            console.print(f"[bold]Project:[/] {path}")
             console.print(f"[bold]Generated:[/] {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
             # Basic project info
@@ -766,7 +768,7 @@ class CamtasioCLI:
 
         except Exception as e:
             console.print(f"[red]Error:[/] Analysis failed: {e}")
-            logger.error(f"Failed to analyze {project_path}: {e}")
+            logger.error(f"Failed to analyze {path}: {e}")
 
     def version(self) -> None:
         """Show version information."""

@@ -3,6 +3,7 @@
 
 import json
 import math
+from collections.abc import Iterator
 from typing import Any
 
 from loguru import logger
@@ -41,7 +42,7 @@ class CamtasiaJSONEncoder(json.JSONEncoder):
             return [self._preprocess(item) for item in obj]
         return obj
 
-    def iterencode(self, o: Any, _one_shot: bool = False):
+    def iterencode(self, o: Any, _one_shot: bool = False) -> Iterator[str]:
         """Encode object to JSON string iteratively."""
         # Preprocess before encoding
         processed = self._preprocess(o)

@@ -1,7 +1,6 @@
-from pprint import pprint
-
-from camtasio.utils.color import RGBA
 from camtasio.effects.chroma_key import ChromaKeyEffect
+from camtasio.utils.color import RGBA
+
 # TODO: Add EffectSchema when available
 # from camtasio.effects import EffectSchema
 
@@ -12,7 +11,7 @@ def test_create_default_chromakey_effect():
 
 def test_default_chromakey_effect_parameters():
     effect = ChromaKeyEffect()
-    assert effect.tolerance == effect.parameters.tolerance
+    assert effect.tolerance == effect.parameters["tolerance"]
 
 
 def test_construct_chromakey_effect_with_rgba():
@@ -57,14 +56,11 @@ def test_default_chromakey_effect_metadata():
     effect = ChromaKeyEffect()
     actual = effect.metadata
     expected = {
-        "default-ChromaKey-color" : "(0,255,0,255)",
-        "default-ChromaKey-defringe" : "0",
-        "default-ChromaKey-invertEffect" : "0",
-        "default-ChromaKey-softness" : "0.1",
-        "default-ChromaKey-tolerance" : "0.1",
+        "default-ChromaKey-color": "(0,255,0,255)",
+        "default-ChromaKey-defringe": "0",
+        "default-ChromaKey-invertEffect": "0",
+        "default-ChromaKey-softness": "0.1",
+        "default-ChromaKey-tolerance": "0.1",
         "default-ChromaKey-clrCompensation": "0",
     }
     assert actual == expected
-
-
-

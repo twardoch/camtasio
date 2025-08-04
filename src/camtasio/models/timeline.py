@@ -2,7 +2,7 @@
 """Timeline and track models for Camtasia projects."""
 
 from dataclasses import dataclass, field
-from typing import Any, Self
+from typing import Any, Self, cast
 
 from .factory import create_media_from_dict
 from .media import Media
@@ -28,7 +28,7 @@ class Transition:
             attributes=self.attributes.copy(),
         )
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         result = {
             "name": self.name,
@@ -42,7 +42,7 @@ class Transition:
         return result
 
     @classmethod
-    def from_dict(cls, data: dict) -> Self:
+    def from_dict(cls, data: dict[str, Any]) -> Self:
         """Create Transition from dictionary."""
         return cls(
             name=data.get("name", ""),
@@ -91,37 +91,43 @@ class Track:
 
     def scale_spatial(self, factor: float) -> Self:
         """Scale all spatial properties in the track."""
-        return Track(
-            track_index=self.track_index,
-            medias=[media.scale_spatial(factor) for media in self.medias],
-            transitions=self.transitions.copy(),  # Transitions don't have spatial properties
-            parameters=self.parameters.copy(),
-            ident=self.ident,
-            audio_muted=self.audio_muted,
-            video_hidden=self.video_hidden,
-            magnetic=self.magnetic,
-            matte=self.matte,
-            solo=self.solo,
-            metadata=self.metadata.copy(),
+        return cast(
+            Self,
+            Track(
+                track_index=self.track_index,
+                medias=[media.scale_spatial(factor) for media in self.medias],
+                transitions=self.transitions.copy(),  # Transitions don't have spatial properties
+                parameters=self.parameters.copy(),
+                ident=self.ident,
+                audio_muted=self.audio_muted,
+                video_hidden=self.video_hidden,
+                magnetic=self.magnetic,
+                matte=self.matte,
+                solo=self.solo,
+                metadata=self.metadata.copy(),
+            ),
         )
 
     def scale_temporal(self, factor: float) -> Self:
         """Scale all temporal properties in the track."""
-        return Track(
-            track_index=self.track_index,
-            medias=[media.scale_temporal(factor) for media in self.medias],
-            transitions=[t.scale_temporal(factor) for t in self.transitions],
-            parameters=self.parameters.copy(),
-            ident=self.ident,
-            audio_muted=self.audio_muted,
-            video_hidden=self.video_hidden,
-            magnetic=self.magnetic,
-            matte=self.matte,
-            solo=self.solo,
-            metadata=self.metadata.copy(),
+        return cast(
+            Self,
+            Track(
+                track_index=self.track_index,
+                medias=[media.scale_temporal(factor) for media in self.medias],
+                transitions=[t.scale_temporal(factor) for t in self.transitions],
+                parameters=self.parameters.copy(),
+                ident=self.ident,
+                audio_muted=self.audio_muted,
+                video_hidden=self.video_hidden,
+                magnetic=self.magnetic,
+                matte=self.matte,
+                solo=self.solo,
+                metadata=self.metadata.copy(),
+            ),
         )
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         result = {
             "trackIndex": self.track_index,
@@ -186,19 +192,25 @@ class Timeline:
 
     def scale_spatial(self, factor: float) -> Self:
         """Scale all spatial properties in the timeline."""
-        return Timeline(
-            id=self.id,
-            tracks=[track.scale_spatial(factor) for track in self.tracks],
+        return cast(
+            Self,
+            Timeline(
+                id=self.id,
+                tracks=[track.scale_spatial(factor) for track in self.tracks],
+            ),
         )
 
     def scale_temporal(self, factor: float) -> Self:
         """Scale all temporal properties in the timeline."""
-        return Timeline(
-            id=self.id,
-            tracks=[track.scale_temporal(factor) for track in self.tracks],
+        return cast(
+            Self,
+            Timeline(
+                id=self.id,
+                tracks=[track.scale_temporal(factor) for track in self.tracks],
+            ),
         )
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         # Camtasia uses a nested structure with sceneTrack
         return {
@@ -209,7 +221,7 @@ class Timeline:
         }
 
     @classmethod
-    def from_dict(cls, data: dict) -> Self:
+    def from_dict(cls, data: dict[str, Any]) -> Self:
         """Create Timeline from dictionary."""
         timeline_id = data.get("id", 0)
         tracks = []

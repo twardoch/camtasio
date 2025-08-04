@@ -8,7 +8,8 @@ from camtasio.utils.timing import FrameStamp
 def frame_stamps(draw):
     return FrameStamp(
         frame_number=draw(st.integers(min_value=0, max_value=1000000000)),
-        frame_rate=draw(st.integers(min_value=1)))
+        frame_rate=draw(st.integers(min_value=1)),
+    )
 
 
 @given(frame_stamps())

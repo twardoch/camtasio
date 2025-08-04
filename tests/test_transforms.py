@@ -17,11 +17,7 @@ class TestTransformConfig:
 
     def test_spatial_config(self):
         """Test spatial transform config."""
-        config = TransformConfig(
-            transform_type=TransformType.SPATIAL,
-            factor=2.0,
-            verbose=True
-        )
+        config = TransformConfig(transform_type=TransformType.SPATIAL, factor=2.0, verbose=True)
         assert config.transform_type == TransformType.SPATIAL
         assert config.factor == 2.0
         assert config.verbose
@@ -30,9 +26,7 @@ class TestTransformConfig:
     def test_temporal_config(self):
         """Test temporal transform config."""
         config = TransformConfig(
-            transform_type=TransformType.TEMPORAL,
-            factor=1.5,
-            preserve_audio_duration=False
+            transform_type=TransformType.TEMPORAL, factor=1.5, preserve_audio_duration=False
         )
         assert config.transform_type == TransformType.TEMPORAL
         assert config.factor == 1.5
@@ -84,28 +78,26 @@ class TestPropertyTransformer:
         data = {
             "width": 1920,
             "height": 1080,
-            "sourceBin": [{
-                "rect": [0, 0, 1920, 1080],
-                "sourceTracks": [{
-                    "trackRect": [0, 0, 1920, 1080]
-                }]
-            }],
+            "sourceBin": [
+                {"rect": [0, 0, 1920, 1080], "sourceTracks": [{"trackRect": [0, 0, 1920, 1080]}]}
+            ],
             "timeline": {
                 "sceneTrack": {
-                    "scenes": [{
-                        "csml": {
-                            "tracks": [{
-                                "medias": [{
-                                    "parameters": {
-                                        "translation0": 100,
-                                        "scale0": 1.0
+                    "scenes": [
+                        {
+                            "csml": {
+                                "tracks": [
+                                    {
+                                        "medias": [
+                                            {"parameters": {"translation0": 100, "scale0": 1.0}}
+                                        ]
                                     }
-                                }]
-                            }]
+                                ]
+                            }
                         }
-                    }]
+                    ]
                 }
-            }
+            },
         }
 
         config = TransformConfig(TransformType.SPATIAL, factor=2.0)
@@ -116,40 +108,37 @@ class TestPropertyTransformer:
         assert transformed["width"] == 3840
         assert transformed["height"] == 2160
         assert transformed["sourceBin"][0]["rect"] == [0, 0, 3840, 2160]
-        assert transformed["timeline"]["sceneTrack"]["scenes"][0]["csml"]["tracks"][0]["medias"][0]["parameters"]["translation0"] == 200
+        assert (
+            transformed["timeline"]["sceneTrack"]["scenes"][0]["csml"]["tracks"][0]["medias"][0][
+                "parameters"
+            ]["translation0"]
+            == 200
+        )
 
     def test_transform_dict_temporal(self):
         """Test temporal transformation of raw dictionary."""
         data = {
             "timeline": {
                 "sceneTrack": {
-                    "scenes": [{
-                        "csml": {
-                            "tracks": [{
-                                "medias": [
+                    "scenes": [
+                        {
+                            "csml": {
+                                "tracks": [
                                     {
-                                        "_type": "VMFile",
-                                        "start": 100,
-                                        "duration": 200
-                                    },
-                                    {
-                                        "_type": "AMFile",
-                                        "start": 300,
-                                        "duration": 100
+                                        "medias": [
+                                            {"_type": "VMFile", "start": 100, "duration": 200},
+                                            {"_type": "AMFile", "start": 300, "duration": 100},
+                                        ]
                                     }
                                 ]
-                            }]
+                            }
                         }
-                    }]
+                    ]
                 }
             }
         }
 
-        config = TransformConfig(
-            TransformType.TEMPORAL,
-            factor=2.0,
-            preserve_audio_duration=True
-        )
+        config = TransformConfig(TransformType.TEMPORAL, factor=2.0, preserve_audio_duration=True)
         transformer = PropertyTransformer(config)
 
         transformed = transformer.transform_dict(data)
@@ -170,22 +159,28 @@ class TestPropertyTransformer:
         data = {
             "timeline": {
                 "sceneTrack": {
-                    "scenes": [{
-                        "csml": {
-                            "tracks": [{
-                                "medias": [{
-                                    "parameters": {
-                                        "translation0": {
-                                            "keyframes": [
-                                                {"time": 0, "value": 100},
-                                                {"time": 100, "value": 200}
-                                            ]
-                                        }
+                    "scenes": [
+                        {
+                            "csml": {
+                                "tracks": [
+                                    {
+                                        "medias": [
+                                            {
+                                                "parameters": {
+                                                    "translation0": {
+                                                        "keyframes": [
+                                                            {"time": 0, "value": 100},
+                                                            {"time": 100, "value": 200},
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
                                     }
-                                }]
-                            }]
+                                ]
+                            }
                         }
-                    }]
+                    ]
                 }
             }
         }
@@ -195,7 +190,9 @@ class TestPropertyTransformer:
 
         result = transformer.transform_dict(data)
 
-        params = result["timeline"]["sceneTrack"]["scenes"][0]["csml"]["tracks"][0]["medias"][0]["parameters"]
+        params = result["timeline"]["sceneTrack"]["scenes"][0]["csml"]["tracks"][0]["medias"][0][
+            "parameters"
+        ]
         keyframes = params["translation0"]["keyframes"]
         assert keyframes[0]["value"] == 200
         assert keyframes[1]["value"] == 400
@@ -208,10 +205,7 @@ class TestPropertyTransformer:
         data = {
             "parameters": {
                 "translation0": {
-                    "keyframes": [
-                        {"time": 0, "value": 100},
-                        {"time": 100, "value": 200}
-                    ]
+                    "keyframes": [{"time": 0, "value": 100}, {"time": 100, "value": 200}]
                 }
             }
         }
