@@ -4,4 +4,4 @@
 from camtasio.utils.color import RGBA, hex_to_rgb
 from camtasio.utils.timing import FrameStamp
 
-__all__ = ["RGBA", "hex_to_rgb", "FrameStamp"]
+__all__ = ["RGBA", "FrameStamp", "hex_to_rgb"]

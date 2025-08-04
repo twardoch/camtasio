@@ -7,7 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from camtasio.cli import hello, timescale, version, xyscale
+# Import individual CLI functions from the legacy standalone module
+from camtasio.legacy_cli import hello, timescale, version, xyscale
 from camtasio.models import Project
 
 

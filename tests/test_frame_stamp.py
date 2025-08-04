@@ -1,7 +1,7 @@
 import hypothesis.strategies as st
 from hypothesis import given
 
-from camtasia.frame_stamp import FrameStamp
+from camtasio.utils.timing import FrameStamp
 
 
 @st.composite

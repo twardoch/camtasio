@@ -7,6 +7,21 @@ except ImportError:
     __version__ = "0.0.0+unknown"
 
 # Import main components
+from .annotations import (
+    Color,
+    FillStyle,
+    HorizontalAlignment,
+    StrokeStyle,
+    VerticalAlignment,
+    square_callout,
+    text_callout,
+)
+
+# CLI application
+from .cli import app
+
+# Effects and annotations
+from .effects import ChromaKeyEffect, Effect, VisualEffect
 from .models import (
     AudioMedia,
     Canvas,
@@ -21,80 +36,65 @@ from .models import (
     VideoMedia,
     create_media_from_dict,
 )
-from .serialization import ProjectLoader, ProjectSaver, detect_version
-from .transforms import PropertyTransformer, TransformConfig, TransformType
-
-# Effects and annotations
-from .effects import Effect, VisualEffect, ChromaKeyEffect
-from .annotations import (
-    Color,
-    FillStyle,
-    StrokeStyle,
-    HorizontalAlignment,
-    VerticalAlignment,
-    text_callout,
-    square_callout,
-)
-
-# Utilities
-from .utils import RGBA, hex_to_rgb, FrameStamp
 
 # Operations
 from .operations import (
     add_media_to_track,
-    remove_media,
     duplicate_media,
     find_media_references,
+    remove_media,
 )
+from .serialization import ProjectLoader, ProjectSaver, detect_version
+from .transforms import PropertyTransformer, TransformConfig, TransformType
 
-# CLI application
-from .cli import app
+# Utilities
+from .utils import RGBA, FrameStamp, hex_to_rgb
 
 __all__ = [
+    # Utilities
+    "RGBA",
     # Models
     "AudioMedia",
     "Canvas",
-    "ImageMedia",
-    "Media",
-    "Project",
-    "ProjectMetadata",
-    "SourceBin",
-    "SourceItem",
-    "Timeline",
-    "Track",
-    "VideoMedia",
-    "create_media_from_dict",
-    # Serialization
-    "ProjectLoader",
-    "ProjectSaver",
-    "detect_version",
-    # Transforms
-    "PropertyTransformer",
-    "TransformConfig",
-    "TransformType",
-    # Effects
-    "Effect",
-    "VisualEffect",
     "ChromaKeyEffect",
     # Annotations
     "Color",
+    # Effects
+    "Effect",
     "FillStyle",
-    "StrokeStyle",
-    "HorizontalAlignment",
-    "VerticalAlignment",
-    "text_callout",
-    "square_callout",
-    # Utilities
-    "RGBA",
-    "hex_to_rgb",
     "FrameStamp",
-    # Operations
-    "add_media_to_track",
-    "remove_media",
-    "duplicate_media",
-    "find_media_references",
-    # CLI
-    "app",
+    "HorizontalAlignment",
+    "ImageMedia",
+    "Media",
+    "Project",
+    # Serialization
+    "ProjectLoader",
+    "ProjectMetadata",
+    "ProjectSaver",
+    # Transforms
+    "PropertyTransformer",
+    "SourceBin",
+    "SourceItem",
+    "StrokeStyle",
+    "Timeline",
+    "Track",
+    "TransformConfig",
+    "TransformType",
+    "VerticalAlignment",
+    "VideoMedia",
+    "VisualEffect",
     # Version
     "__version__",
+    # Operations
+    "add_media_to_track",
+    # CLI
+    "app",
+    "create_media_from_dict",
+    "detect_version",
+    "duplicate_media",
+    "find_media_references",
+    "hex_to_rgb",
+    "remove_media",
+    "square_callout",
+    "text_callout",
 ]

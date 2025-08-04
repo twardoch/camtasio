@@ -8,14 +8,14 @@ including scaling, transforming, and other complex modifications.
 
 from camtasio.operations.media_operations import (
     add_media_to_track,
-    remove_media,
     duplicate_media,
     find_media_references,
+    remove_media,
 )
 
 __all__ = [
     "add_media_to_track",
-    "remove_media",
     "duplicate_media",
     "find_media_references",
+    "remove_media",
 ]

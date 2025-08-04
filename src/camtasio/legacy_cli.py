@@ -10,7 +10,7 @@ from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from . import __version__
-from .direct_scaler import DirectScaler
+from .scaler import TscprojScaler
 from .serialization import ProjectLoader, ProjectSaver
 from .transforms import PropertyTransformer, TransformConfig, TransformType
 
@@ -103,7 +103,7 @@ def xyscale(
                 console=console,
             ) as progress:
                 task = progress.add_task("Scaling project directly...", total=None)
-                scaler = DirectScaler(scale_factor, verbose=verbose)
+                scaler = TscprojScaler(scale_factor, verbose=verbose)
                 scaler.scale_file(input_path, output_path)
                 progress.update(task, completed=True)
         else:

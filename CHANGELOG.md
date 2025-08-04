@@ -5,7 +5,19 @@ All notable changes to Camtasio will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-08-03
+## [v2025.0.5] - 2025-08-03
+
+### Current Status
+- **Package Size**: 34 Python modules in unified camtasio package
+- **Test Coverage**: 16 test modules with collection issues requiring fixes
+- **Code Quality**: 182 ruff linting issues (141 auto-fixable), 78 mypy type errors
+- **Build System**: Hatch + hatch-vcs configured for git tag-based versioning
+
+### Issues Identified for Immediate Resolution
+- **Critical**: 7 test collection errors preventing test suite execution
+- **High Priority**: 182 code style violations (115 blank-line issues, 15 type annotations, 13 optional annotations)
+- **Type Safety**: 78 mypy errors requiring resolution for production readiness
+- **Dependencies**: Test failures related to missing test dependencies or import issues
 
 ### Added
 

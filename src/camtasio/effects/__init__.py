@@ -4,4 +4,4 @@
 from camtasio.effects.base import Effect, VisualEffect
 from camtasio.effects.chroma_key import ChromaKeyEffect
 
-__all__ = ["Effect", "VisualEffect", "ChromaKeyEffect"]
+__all__ = ["ChromaKeyEffect", "Effect", "VisualEffect"]

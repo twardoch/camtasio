@@ -2,13 +2,13 @@
 """Callout annotation creation functions."""
 # this_file: src/camtasio/annotations/callouts.py
 
-from typing import Dict, Any, Optional
+from typing import Any
 
 from camtasio.annotations.types import (
     Color,
     FillStyle,
-    StrokeStyle,
     HorizontalAlignment,
+    StrokeStyle,
     VerticalAlignment,
 )
 
@@ -18,15 +18,15 @@ def text_callout(
     font_name: str,
     font_weight: str,
     font_size: float = 96.0,
-    font_color: Optional[Color] = None,
+    font_color: Color | None = None,
     height: float = 250.0,
     width: float = 400.0,
     horizontal_alignment: HorizontalAlignment = HorizontalAlignment.CENTER,
     vertical_alignment: VerticalAlignment = VerticalAlignment.CENTER,
     line_spacing: float = 0.0
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create a text callout annotation.
-    
+
     Args:
         text: The text content
         font_name: Font family name
@@ -38,13 +38,13 @@ def text_callout(
         horizontal_alignment: Text horizontal alignment
         vertical_alignment: Text vertical alignment
         line_spacing: Line spacing
-        
+
     Returns:
         Dictionary representing the text callout
     """
     if font_color is None:
         font_color = Color.white()
-    
+
     return {
         "kind": "remix",
         "shape": "text",
@@ -85,10 +85,10 @@ def square_callout(
     font_name: str,
     font_weight: str,
     font_size: float = 64.0,
-    font_color: Optional[Color] = None,
-    fill_color: Optional[Color] = None,
+    font_color: Color | None = None,
+    fill_color: Color | None = None,
     fill_style: FillStyle = FillStyle.SOLID,
-    stroke_color: Optional[Color] = None,
+    stroke_color: Color | None = None,
     stroke_width: float = 2.0,
     stroke_style: StrokeStyle = StrokeStyle.SOLID,
     height: float = 150.0,
@@ -98,9 +98,9 @@ def square_callout(
     line_spacing: float = 0.0,
     tail_x: float = 0.0,
     tail_y: float = -20.0
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Create a square callout annotation with optional tail.
-    
+
     Args:
         text: The text content
         font_name: Font family name
@@ -119,7 +119,7 @@ def square_callout(
         line_spacing: Line spacing
         tail_x: Tail X position relative to center
         tail_y: Tail Y position relative to center
-        
+
     Returns:
         Dictionary representing the square callout
     """
@@ -129,7 +129,7 @@ def square_callout(
         fill_color = Color.white()
     if stroke_color is None:
         stroke_color = Color(0.0, 0.5, 0.5, 1.0)  # Teal
-    
+
     return {
         "kind": "remix",
         "shape": "text-rectangle",

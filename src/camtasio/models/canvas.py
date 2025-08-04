@@ -2,7 +2,7 @@
 """Canvas model representing project dimensions and settings."""
 
 from dataclasses import dataclass
-from typing import Self, Any
+from typing import Any, Self
 
 
 @dataclass(frozen=True)
@@ -25,7 +25,7 @@ class Canvas:
         Returns:
             New Canvas instance with scaled dimensions
         """
-        return Canvas(
+        return self.__class__(
             width=self.width * factor,
             height=self.height * factor,
             frame_rate=self.frame_rate,  # Frame rate doesn't scale
@@ -41,7 +41,7 @@ class Canvas:
         Returns:
             New Canvas instance with updated dimensions
         """
-        return cls(
+        return self.__class__(
             width=width if width is not None else self.width,
             height=height if height is not None else self.height,
             frame_rate=self.frame_rate,

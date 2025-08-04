@@ -1,21 +1,21 @@
 """Annotations system for Camtasia projects."""
 # this_file: src/camtasio/annotations/__init__.py
 
+from camtasio.annotations.callouts import square_callout, text_callout
 from camtasio.annotations.types import (
     Color,
     FillStyle,
-    StrokeStyle,
     HorizontalAlignment,
+    StrokeStyle,
     VerticalAlignment,
 )
-from camtasio.annotations.callouts import text_callout, square_callout
 
 __all__ = [
     "Color",
-    "FillStyle", 
-    "StrokeStyle",
+    "FillStyle",
     "HorizontalAlignment",
+    "StrokeStyle",
     "VerticalAlignment",
-    "text_callout",
     "square_callout",
+    "text_callout",
 ]

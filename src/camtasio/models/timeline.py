@@ -20,7 +20,7 @@ class Transition:
 
     def scale_temporal(self, factor: float) -> Self:
         """Scale transition duration."""
-        return Transition(
+        return self.__class__(
             name=self.name,
             duration=int(self.duration * factor),
             left_media=self.left_media,

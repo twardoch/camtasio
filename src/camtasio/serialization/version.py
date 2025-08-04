@@ -2,6 +2,7 @@
 """Version detection and compatibility for Camtasia projects."""
 
 from enum import Enum
+from typing import Any
 
 from loguru import logger
 
@@ -37,7 +38,7 @@ class ProjectVersion(Enum):
         return self in {ProjectVersion.V3_0, ProjectVersion.V2_0, ProjectVersion.V1_0}
 
 
-def detect_version(data: dict) -> ProjectVersion:
+def detect_version(data: dict[str, Any]) -> ProjectVersion:
     """Detect project version from data.
 
     Args:
@@ -59,7 +60,7 @@ def detect_version(data: dict) -> ProjectVersion:
     return ProjectVersion.UNKNOWN
 
 
-def is_supported_version(data: dict) -> bool:
+def is_supported_version(data: dict[str, Any]) -> bool:
     """Check if project version is supported.
 
     Args:
