@@ -1,0 +1,92 @@
+site_name: Camtasio Documentation
+site_description: Python toolkit for programmatically manipulating Camtasia project files
+site_author: Terragon Labs
+site_url: https://terragon.github.io/camtasio/
+
+repo_name: terragon/camtasio
+repo_url: https://github.com/terragon/camtasio
+edit_uri: edit/master/src_docs/md/
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode  
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
+
+plugins:
+  - search:
+      lang: en
+  - minify:
+      minify_html: true
+  - git-revision-date-localized:
+      type: datetime
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Quick Start: quickstart.md
+    - Installation: installation.md
+  - User Guide:
+    - Project Basics: project-basics.md
+    - Timeline Operations: timeline-operations.md
+    - Media Management: media-management.md
+    - Effects & Annotations: effects-annotations.md
+  - Advanced Topics:
+    - Scaling Operations: scaling-operations.md
+    - Batch Processing: batch-processing.md
+    - File Format Details: file-format.md
+
+docs_dir: md
+site_dir: ../docs
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/terragon/camtasio
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/camtasio/
+  version:
+    provider: mike

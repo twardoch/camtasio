@@ -1,0 +1,79 @@
+name: Build and Deploy Documentation
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'src_docs/**'
+      - '_github/workflows/docs.yml'
+  pull_request:
+    branches: [ master, main ]
+    paths:
+      - 'src_docs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Install MkDocs and dependencies
+        run: |
+          uv pip install --system mkdocs[i18n] mkdocs-material mkdocs-git-revision-date-localized-plugin mkdocs-minify-plugin
+
+      - name: Configure Git for git-revision-date-localized
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Build MkDocs site
+        run: |
+          cd src_docs
+          mkdocs build --verbose --strict
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs
+
+  deploy:
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
