@@ -1,6 +1,6 @@
 # Effects and Transitions
 
-Effects and transitions enhance media items with visual and audio processing. Effects apply to individual clips, while transitions blend between adjacent clips.
+Effects and transitions add visual and audio processing to media. Effects apply to individual clips. Transitions blend adjacent clips.
 
 ## Effects Structure
 
@@ -38,7 +38,7 @@ Effects are stored in the `effects` array of media items:
 - **Default**: `true`
 
 ### `parameters` (object)
-- **Description**: Effect-specific parameters
+- **Description**: Effect-specific settings
 - **Required**: Yes
 - **Content**: Varies by effect type
 
@@ -140,7 +140,7 @@ Transitions are stored in the `transitions` array at the track level:
 - **Note**: Transition occurs between this and previous clip
 
 ### `attributes` (object)
-- **Description**: Transition-specific parameters
+- **Description**: Transition-specific settings
 - **Required**: Yes
 
 ## Common Transition Attributes

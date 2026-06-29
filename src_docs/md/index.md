@@ -4,16 +4,16 @@
 
 ## TLDR
 
-Camtasio is a comprehensive Python library that enables developers to programmatically read, modify, and create Camtasia project files (`.cmproj` and `.tscproj` formats). Whether you need to batch-process projects, automate scaling operations, or integrate Camtasia workflows into larger applications, Camtasio provides the tools you need.
+Camtasio is a Python library that reads, modifies, and creates Camtasia project files (`.cmproj` and `.tscproj`). It's useful for batch-processing projects, automating edits, or integrating Camtasia into larger workflows.
 
 ### Key Features
 
-- 🎥 **Complete Project Manipulation** - Load, modify, and save Camtasia projects
-- ⚡ **High-Performance Operations** - Efficient scaling, timeline editing, and media management
-- 🔧 **Modern Python API** - Type-hinted, Pydantic-validated models with intuitive interfaces
-- 📱 **CLI Tools** - Command-line utilities for common operations
-- 🎨 **Effects & Annotations** - Full support for callouts, transitions, and visual effects
-- 📊 **Batch Processing** - Process multiple projects efficiently
+- 🎥 Load, modify, and save Camtasia projects  
+- ⚡ Efficient operations: scaling, timeline editing, media management  
+- 🔧 Clean Python API with type hints and data validation  
+- 📱 CLI tools for common tasks  
+- 🎨 Support for annotations, transitions, and visual effects  
+- 📊 Batch process multiple projects  
 
 ### Quick Example
 
@@ -35,50 +35,50 @@ project.save()
 
 ## Documentation Structure
 
-This documentation is organized into 9 comprehensive chapters:
+This documentation has 9 chapters:
 
 ### 📚 Table of Contents
 
 | Chapter | Topic | Description |
 |---------|-------|-------------|
-| **1** | [Quick Start](quickstart.md) | Get up and running in minutes with essential examples |
-| **2** | [Installation](installation.md) | Detailed installation guide and dependency management |
-| **3** | [Project Basics](project-basics.md) | Core concepts for working with Camtasia projects |
-| **4** | [Timeline Operations](timeline-operations.md) | Managing tracks, clips, and timeline structure |
-| **5** | [Media Management](media-management.md) | Handling video, audio, and image assets |
-| **6** | [Effects & Annotations](effects-annotations.md) | Working with callouts, transitions, and visual effects |
-| **7** | [Scaling Operations](scaling-operations.md) | Advanced scaling and resolution management |
-| **8** | [Batch Processing](batch-processing.md) | Efficient processing of multiple projects |
-| **9** | [File Format Details](file-format.md) | Deep dive into `.tscproj` format specification |
+| **1** | [Quick Start](quickstart.md) | Essential examples to get going fast |
+| **2** | [Installation](installation.md) | How to install and manage dependencies |
+| **3** | [Project Basics](project-basics.md) | Core concepts for working with projects |
+| **4** | [Timeline Operations](timeline-operations.md) | Tracks, clips, and timeline structure |
+| **5** | [Media Management](media-management.md) | Video, audio, and image assets |
+| **6** | [Effects & Annotations](effects-annotations.md) | Callouts, transitions, visual effects |
+| **7** | [Scaling Operations](scaling-operations.md) | Resolution changes and canvas adjustments |
+| **8** | [Batch Processing](batch-processing.md) | Handle many projects at once |
+| **9** | [File Format Details](file-format.md) | Inside the `.tscproj` file format |
 
 ---
 
 ## Quick Navigation
 
 ### Getting Started
-- New to Camtasio? Start with the [Quick Start Guide](quickstart.md)
-- Need to install? Check the [Installation Instructions](installation.md)
+- [Quick Start Guide](quickstart.md)
+- [Installation Instructions](installation.md)
 
 ### Common Tasks
-- **Project Management**: [Project Basics](project-basics.md)
-- **Timeline Editing**: [Timeline Operations](timeline-operations.md)
-- **Asset Handling**: [Media Management](media-management.md)
-- **Visual Elements**: [Effects & Annotations](effects-annotations.md)
+- **Project Management**: [Project Basics](project-basics.md)  
+- **Timeline Editing**: [Timeline Operations](timeline-operations.md)  
+- **Asset Handling**: [Media Management](media-management.md)  
+- **Visual Elements**: [Effects & Annotations](effects-annotations.md)  
 
 ### Advanced Usage
-- **Resolution Changes**: [Scaling Operations](scaling-operations.md)
-- **Automation**: [Batch Processing](batch-processing.md)
-- **Format Details**: [File Format Specification](file-format.md)
+- **Resolution Changes**: [Scaling Operations](scaling-operations.md)  
+- **Automation**: [Batch Processing](batch-processing.md)  
+- **Format Details**: [File Format Specification](file-format.md)  
 
 ---
 
 ## Community & Support
 
-- **GitHub Repository**: [github.com/terragon/camtasio](https://github.com/terragon/camtasio)
-- **PyPI Package**: [pypi.org/project/camtasio/](https://pypi.org/project/camtasio/)
-- **Issues & Bug Reports**: Use GitHub Issues for support
-- **Contributions**: See our contribution guidelines in the repository
+- **GitHub Repository**: [github.com/twardoch/camtasio](https://github.com/twardoch/camtasio)  
+- **PyPI Package**: [pypi.org/project/camtasio/](https://pypi.org/project/camtasio/)  
+- **Issues & Bug Reports**: Use GitHub Issues  
+- **Contributions**: See contribution guidelines in the repo  
 
 ---
 
-*This documentation covers Camtasio v1.0+ - for legacy versions, see the migration guide in Chapter 1.*
+*Documentation applies to Camtasio v1.0+. For older versions, check the migration guide in Chapter 1.*

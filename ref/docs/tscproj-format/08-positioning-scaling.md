@@ -1,6 +1,6 @@
 # Coordinate Systems and Transformations
 
-This document explains how positioning, scaling, and transformations work in Camtasia projects, essential for correctly manipulating content.
+This document explains positioning, scaling, and transformations in Camtasia projects.
 
 ## Coordinate System
 
@@ -34,7 +34,7 @@ Camtasia uses a standard 2D coordinate system:
 
 ## Rectangle Arrays
 
-Rectangle arrays define bounding boxes throughout the format:
+Rectangle arrays define bounding boxes:
 
 ```json
 "rect": [x, y, width, height]

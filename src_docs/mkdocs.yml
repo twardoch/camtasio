@@ -1,10 +1,10 @@
 site_name: Camtasio Documentation
 site_description: Python toolkit for programmatically manipulating Camtasia project files
 site_author: Terragon Labs
-site_url: https://terragon.github.io/camtasio/
+site_url: https://twardoch.github.io/camtasio/
 
-repo_name: terragon/camtasio
-repo_url: https://github.com/terragon/camtasio
+repo_name: twardoch/camtasio
+repo_url: https://github.com/twardoch/camtasio
 edit_uri: edit/master/src_docs/md/
 
 theme:
@@ -85,7 +85,7 @@ site_dir: ../docs
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/terragon/camtasio
+      link: https://github.com/twardoch/camtasio
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/camtasio/
   version:

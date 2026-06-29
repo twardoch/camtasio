@@ -5,6 +5,30 @@ All notable changes to Camtasio will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-06-29
+
+### Fixed
+- `ProjectLoader.validate_structure`: added type checks for `width`, `height`, and `editRate`
+  (distinguishes booleans from ints; before this, `"height": True` passed validation silently)
+- `Timeline.from_dict`: handle `csml: null` in scene data without crashing (`AttributeError` on `None.get`)
+- `ProjectLoader.load_file`: handle `.cmproj` directories — now looks for `project.tscproj` inside
+  instead of raising `IsADirectoryError`
+- `tests/test_malformed_projects.py`: `test_permission_denied` opened temp file in binary mode,
+  making `json.dump` fail with `TypeError`; fixed to use `mode="w"`
+
+### Added
+- `pyproject.toml`: `[tool.hatch.envs.hatch-test]` with `pytest-cov` and `hypothesis` so
+  `uvx hatch test` works out of the box (previously failed with "unrecognized arguments: --cov")
+- `.github/workflows/ci.yml`: lint (ruff) + test (hatch, Python 3.11–3.13) + type-check (mypy)
+- `src_docs/md/file-format.md`: "What is a .tscproj file? (No Camtasia required)" intro section
+  explaining the JSON schema, time/tick conversion, and a minimal working example for users
+  unfamiliar with Camtasia
+
+### Changed
+- `src_docs/mkdocs.yml`, `src_docs/md/index.md`, `src_docs/md/installation.md`: fixed incorrect
+  org name `terragon` → `twardoch` throughout
+- `README.md`: fixed clone URL (`yourusername` → `twardoch`)
+
 ## [Unreleased] - 2025-08-04
 
 ### PRODUCTION RELEASE READY! 🚀✨ (Final Update)

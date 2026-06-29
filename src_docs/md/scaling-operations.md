@@ -1,12 +1,12 @@
 # Scaling Operations
 
-Advanced resolution management and scaling techniques for Camtasia projects using Camtasio.
+Manage resolution and scaling in Camtasio projects.
 
 ## Understanding Scaling Concepts
 
 ### Types of Scaling Operations
 
-Camtasio supports several types of scaling operations, each suited for different use cases:
+Camtasio supports several scaling operations:
 
 ```python
 from camtasio import Project

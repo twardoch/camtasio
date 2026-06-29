@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Get up and running with Camtasio in minutes! This guide will walk you through the essential operations you can perform with Camtasio.
+Get Camtasio running fast. This guide covers the core operations you'll actually use.
 
 ## Installation
 
@@ -8,7 +8,7 @@ Get up and running with Camtasio in minutes! This guide will walk you through th
 # Install via pip
 pip install camtasio
 
-# Or using uv (recommended)
+# Or using uv (faster, more reliable)
 uv add camtasio
 ```
 
@@ -37,10 +37,10 @@ print(f"Resolution: {project.width}x{project.height}")
 # Scale to specific resolution
 project.scale_to_resolution(1920, 1080)
 
-# Scale by factor (2x larger)
+# Scale everything by factor (2x larger)
 project.scale_by_factor(2.0)
 
-# Scale canvas size only (preserves media sizes)
+# Scale canvas only (media stays the same size)
 project.scale_canvas(1280, 720)
 ```
 
@@ -97,7 +97,7 @@ project.save_tscproj("output.tscproj")
 
 ## Command Line Interface
 
-Camtasio includes a powerful CLI for common operations:
+The CLI handles repetitive tasks without writing code:
 
 ### Project Information
 
@@ -221,26 +221,26 @@ print(f"Project has {stats['total_tracks']} tracks with {stats['total_media']} m
 
 ## Next Steps
 
-Now that you've got the basics down, explore the detailed documentation:
+Ditch this guide and read the real docs:
 
-- **[Installation Guide](installation.md)** - Advanced installation options and troubleshooting
-- **[Project Basics](project-basics.md)** - Deep dive into project structure and core concepts  
-- **[Timeline Operations](timeline-operations.md)** - Advanced timeline manipulation techniques
-- **[Effects & Annotations](effects-annotations.md)** - Working with visual effects and callouts
+- **[Installation Guide](installation.md)** - For when pip fails
+- **[Project Basics](project-basics.md)** - How projects actually work
+- **[Timeline Operations](timeline-operations.md)** - Move things around like a pro
+- **[Effects & Annotations](effects-annotations.md)** - Make your video look less boring
 
 ## Common Issues
 
 ### Project Won't Load
-- Ensure the `.cmproj` directory contains a `project.tscproj` file
+- Make sure the `.cmproj` directory has a `project.tscproj` file
 - Check file permissions
-- Verify the project isn't corrupted by opening it in Camtasia
+- Try opening it in Camtasia first (if it's broken there, it's broken everywhere)
 
 ### Scaling Issues
-- Some very old project formats may not support all scaling operations
-- Always backup projects before scaling
-- Use `project.validate()` to check project integrity
+- Old project formats sometimes ignore scaling
+- Backup before scaling (yes, really)
+- Run `project.validate()` to spot problems early
 
 ### Performance Tips
-- Use `project.load_lazy()` for large projects if you only need metadata
-- Process projects in batches rather than loading all at once
-- Consider using multiprocessing for batch operations on large project sets
+- Use `project.load_lazy()` for quick metadata checks
+- Don't load 50 projects into memory at once
+- Multiprocessing helps with large batches, but don't overdo it

@@ -1,12 +1,12 @@
 # Contributing to Camtasio
 
-Thank you for your interest in contributing to Camtasio! This document provides guidelines and information for contributors.
+This document explains how to contribute to Camtasio.
 
 ## Development Setup
 
 ### Prerequisites
 
-- Python 3.11 or higher
+- Python 3.11+
 - [uv](https://github.com/astral-sh/uv) package manager
 
 ### Setting up the Development Environment
@@ -37,29 +37,29 @@ camtasio version
 
 ### Code Quality Standards
 
-We maintain high code quality standards using modern Python tooling:
+Code quality is enforced through:
 
-- **Linting & Formatting**: `ruff` for fast linting and code formatting  
-- **Type Checking**: `mypy` with strict mode enabled
+- **Linting & Formatting**: `ruff`  
+- **Type Checking**: `mypy` with strict mode
 - **Testing**: `pytest` with coverage reporting
-- **Dependency Management**: `uv` for fast, reliable package management
+- **Dependency Management**: `uv`
 
 ### Before Making Changes
 
-1. Create a new branch for your feature/fix:
+1. Create a new branch:
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
-2. Run the quality checks to ensure your environment is set up correctly:
+2. Run quality checks:
 ```bash
 # Format code
 uv run ruff format .
 
-# Check and fix linting issues
+# Fix linting issues
 uv run ruff check --fix .
 
-# Run type checking
+# Type checking
 uv run mypy src/
 
 # Run tests
@@ -68,59 +68,59 @@ uv run pytest
 
 ### Making Changes
 
-1. **Write Tests First**: We follow test-driven development. Write tests for new functionality before implementing it.
+1. **Write Tests First**: Add tests before implementing new functionality.
 
 2. **Follow Code Style**: 
    - Use type hints for all function parameters and return values
-   - Write clear, descriptive docstrings
-   - Keep functions focused and single-purpose
+   - Write clear docstrings
+   - Keep functions single-purpose
    - Use modern Python features (f-strings, pathlib, dataclasses, etc.)
 
 3. **Add Documentation**: Update docstrings, README examples, and add usage examples for new features.
 
 ### Testing
 
-We maintain high test coverage (>80%) with comprehensive test suites:
+Test coverage must stay above 80%. Run tests with:
 
 ```bash
-# Run all tests
+# All tests
 uv run pytest
 
-# Run with coverage
+# With coverage report
 uv run pytest --cov=src/camtasio --cov-report=html
 
-# Run specific test file
+# Specific file
 uv run pytest tests/test_models.py
 
-# Run tests matching a pattern
+# Pattern matching
 uv run pytest -k "test_scaling"
 ```
 
 ### Test Categories
 
-- **Unit Tests**: Test individual functions and classes
-- **Integration Tests**: Test complete workflows and CLI commands
-- **Edge Case Tests**: Test error handling and boundary conditions
-- **Performance Tests**: Ensure operations complete in reasonable time
+- **Unit Tests**: Functions and classes
+- **Integration Tests**: Workflows and CLI commands
+- **Edge Case Tests**: Error handling and boundaries
+- **Performance Tests**: Execution time limits
 
 ### Code Quality Checks
 
-Before submitting your changes, run the complete quality check suite:
+Before submitting changes, run:
 
 ```bash
-# Auto-format code
+# Auto-format
 uv run ruff format .
 
-# Fix linting issues
+# Fix linting
 uv run ruff check --fix --unsafe-fixes .
 
-# Run type checking
+# Type checking
 uv run mypy src/
 
-# Run tests with coverage
+# Test coverage
 uv run pytest --cov=src/camtasio --cov-report=term-missing
 
-# Ensure coverage is above 80%
+# Coverage threshold
 uv run pytest --cov=src/camtasio --cov-fail-under=80
 ```
 
@@ -128,43 +128,43 @@ uv run pytest --cov=src/camtasio --cov-fail-under=80
 
 ### Pull Request Process
 
-1. **Update Documentation**: Ensure README, docstrings, and CHANGELOG are updated.
+1. **Update Documentation**: README, docstrings, CHANGELOG.
 
-2. **Add Tests**: All new code must have corresponding tests.
+2. **Add Tests**: New code needs tests.
 
-3. **Quality Checks**: Ensure all quality checks pass:
-   - ✅ All tests pass
-   - ✅ Coverage >80%
-   - ✅ Zero ruff violations
-   - ✅ Zero mypy errors
+3. **Quality Checks**: All must pass:
+   - All tests pass
+   - Coverage >80%
+   - Zero ruff violations
+   - Zero mypy errors
 
 4. **Create Pull Request**: 
-   - Use a clear, descriptive title
-   - Reference any related issues
-   - Provide a detailed description of changes
-   - Include examples of new functionality
+   - Clear title
+   - Reference issues
+   - Describe changes
+   - Include examples
 
 ### Pull Request Template
 
 ```markdown
 ## Description
-Brief description of changes made.
+What changed and why.
 
 ## Type of Change
-- [ ] Bug fix (non-breaking change that fixes an issue)
-- [ ] New feature (non-breaking change that adds functionality)
-- [ ] Breaking change (fix or feature that causes existing functionality to change)
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
 - [ ] Tests pass locally
-- [ ] New tests added for new functionality
-- [ ] Coverage remains above 80%
+- [ ] New tests added
+- [ ] Coverage >80%
 
 ## Quality Checks
 - [ ] Code formatted with ruff
-- [ ] Linting passes with ruff
-- [ ] Type checking passes with mypy
+- [ ] Linting passes
+- [ ] Type checking passes
 - [ ] Documentation updated
 
 ## Related Issues
@@ -190,66 +190,66 @@ src/camtasio/
 
 ### Design Principles
 
-- **Separation of Concerns**: Each module has a single, well-defined responsibility
-- **Immutable Data**: Use dataclasses with immutable patterns where possible
-- **Type Safety**: Comprehensive type hints and strict mypy checking
-- **Error Handling**: Graceful error handling with informative messages
-- **Performance**: Efficient algorithms and minimal memory usage
-- **Extensibility**: Plugin-friendly architecture for future enhancements
+- **Separation of Concerns**: One responsibility per module
+- **Immutable Data**: Prefer immutable dataclasses
+- **Type Safety**: Strict type hints and mypy checking
+- **Error Handling**: Clear error messages
+- **Performance**: Efficient algorithms, low memory usage
+- **Extensibility**: Plugin-friendly design
 
 ### Adding New Features
 
-1. **Domain Models**: Add new models to `models/` with proper type hints and validation
-2. **Operations**: Add high-level operations to `operations/` that compose models and utilities
-3. **CLI Commands**: Add new CLI commands to `cli/app.py` with proper error handling
-4. **Tests**: Add comprehensive tests covering normal use, edge cases, and error conditions
+1. **Domain Models**: Add to `models/` with type hints and validation
+2. **Operations**: Add to `operations/` 
+3. **CLI Commands**: Add to `cli/app.py`
+4. **Tests**: Cover normal use, edge cases, and errors
 
 ## Common Tasks
 
 ### Adding a New CLI Command
 
-1. Add the method to `CamtasioCLI` class in `src/camtasio/cli/app.py`
-2. Use `rich.console` for beautiful output
-3. Handle errors gracefully with helpful messages
-4. Add comprehensive tests to `tests/test_cli.py`
-5. Update the command reference table in README.md
+1. Add method to `CamtasioCLI` in `src/camtasio/cli/app.py`
+2. Use `rich.console` for output
+3. Handle errors with clear messages
+4. Add tests to `tests/test_cli.py`
+5. Update README.md command reference
 
 ### Adding a New Model
 
-1. Create the model in `src/camtasio/models/`
+1. Create model in `src/camtasio/models/`
 2. Use `@dataclass` with type hints
-3. Implement `to_dict()` and `from_dict()` methods for serialization
-4. Add to `models/__init__.py` exports
-5. Add to main `__init__.py` exports
-6. Add comprehensive tests
+3. Implement `to_dict()` and `from_dict()` for serialization
+4. Export in `models/__init__.py`
+5. Export in main `__init__.py`
+6. Add tests
 
 ### Fixing a Bug
 
-1. Write a test that reproduces the bug
-2. Fix the bug ensuring the test passes
-3. Add regression tests to prevent the bug from reoccurring
-4. Update CHANGELOG.md with the fix
+1. Write test that reproduces the bug
+2. Fix bug and ensure test passes
+3. Add regression tests
+4. Update CHANGELOG.md
 
 ## Release Process
 
-Camtasio uses semantic versioning and automated releases:
+Camtasio uses semantic versioning:
 
 1. **Version Numbering**: `MAJOR.MINOR.PATCH` (e.g., 1.2.3)
-2. **Git Tags**: Versions are determined by git tags (`git tag v1.2.3`)
-3. **Automatic Building**: hatch + hatch-vcs handles version management
-4. **Release Notes**: Update CHANGELOG.md for each release
+2. **Git Tags**: `git tag v1.2.3`
+3. **Automatic Building**: hatch + hatch-vcs handles versioning
+4. **Release Notes**: Update CHANGELOG.md
 
 ## Getting Help
 
-- **Questions**: Open a GitHub Discussion
-- **Bug Reports**: Open a GitHub Issue with reproduction steps
-- **Feature Requests**: Open a GitHub Issue with detailed description
-- **Security Issues**: Email maintainers directly (see SECURITY.md)
+- **Questions**: GitHub Discussion
+- **Bug Reports**: GitHub Issue with steps to reproduce
+- **Feature Requests**: GitHub Issue with description
+- **Security Issues**: Email maintainers (see SECURITY.md)
 
 ## Code of Conduct
 
-We are committed to providing a welcoming and inclusive environment for all contributors. Please be respectful and constructive in all interactions.
+Be respectful. Be constructive. See CODE_OF_CONDUCT.md.
 
 ## Recognition
 
-All contributors are recognized in our CHANGELOG.md and GitHub contributors list. Thank you for helping make Camtasio better!
+Contributors appear in CHANGELOG.md and GitHub's contributors list.

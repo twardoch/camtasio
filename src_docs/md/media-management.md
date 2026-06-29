@@ -1,12 +1,12 @@
 # Media Management
 
-Comprehensive guide to working with video, audio, and image assets in Camtasia projects using Camtasio.
+A practical guide to handling video, audio, and image assets in Camtasia projects using Camtasio.
 
 ## Media Types and Structure
 
-### Understanding Media Categories
+### Media Categories
 
-Camtasia supports several types of media, each with specific properties and handling requirements:
+Camtasia supports three main media types, each with distinct properties:
 
 ```python
 from camtasio import Project
@@ -581,7 +581,7 @@ for result in results:
 
 ## Next Steps
 
-Continue exploring advanced Camtasio features:
+Continue exploring Camtasio features:
 
 - **[Effects & Annotations](effects-annotations.md)** - Adding visual elements and callouts
 - **[Scaling Operations](scaling-operations.md)** - Resolution and size management  

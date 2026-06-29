@@ -229,7 +229,7 @@ class TestMalformedProjects:
     def test_permission_denied(self):
         """Test handling of permission errors."""
         # Create a file and then try to read it with no permissions
-        with tempfile.NamedTemporaryFile(suffix=".tscproj", delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".tscproj", delete=False) as f:
             json.dump({"version": "9.0"}, f)
             temp_path = Path(f.name)
 

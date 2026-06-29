@@ -1,6 +1,6 @@
 # Project Basics
 
-Understanding the fundamental concepts and structure of Camtasia projects and how to work with them using Camtasio.
+Understanding the fundamental concepts and structure of Camtasia projects using Camtasio.
 
 ## Project Structure Overview
 
@@ -249,7 +249,7 @@ for media in timeline_medias:
 validation_result = project.validate()
 
 if validation_result.is_valid:
-    print("Project is valid!")
+    print("Project is valid")
 else:
     print("Project validation failed:")
     for error in validation_result.errors:

@@ -1,12 +1,68 @@
-# File Format Details
+# Camtasia File Format Documentation
 
-Deep dive into Camtasia file formats, structure specifications, and low-level manipulation techniques.
+Technical details about Camtasia project files, structure specifications, and manipulation methods.
 
-## Camtasia Project File Structure
+## What is a .tscproj file? (No Camtasia required)
 
-### Overview of File Formats
+You don't need Camtasia installed to work with `.tscproj` files using camtasio. Here's the mental model:
 
-Camtasia projects use a combination of file formats to store project data and media assets:
+A **Camtasia project** (`.cmproj`) is a directory on disk — just a folder with a specific name suffix. Inside it sits one plain-text file called `project.tscproj`. That file is ordinary JSON. Everything camtasio does is read, modify, and write that JSON.
+
+```
+my_tutorial.cmproj/          ← a folder, not a binary
+├── project.tscproj          ← plain JSON; this is what camtasio touches
+├── media/                   ← original video/audio/image files
+├── bookmarks.plist          ← macOS metadata (safe to ignore)
+└── docPrefs                 ← Camtasia UI preferences (safe to ignore)
+```
+
+### The JSON schema in plain English
+
+The `project.tscproj` file has five meaningful top-level keys:
+
+| Key | What it stores |
+|-----|---------------|
+| `version` | Format version string, e.g. `"9.0"` |
+| `width` / `height` | Canvas size in pixels (e.g. 1920 × 1080) |
+| `editRate` | Internal time unit — ticks per second (usually 705600000) |
+| `sourceBin` | List of every media file the project knows about |
+| `timeline` | The edit — scenes, tracks, clips, transitions, effects |
+
+**All time values are stored as integer ticks**, not seconds. To convert:
+```python
+seconds = ticks / edit_rate   # e.g. 705600000 ticks = 1 second
+```
+
+**All position/size values are in pixels** relative to the canvas.
+
+### Minimal working example
+
+The smallest valid project camtasio can load and save:
+
+```python
+from camtasio.serialization import ProjectLoader, ProjectSaver
+
+# Load — just reads and parses the JSON
+loader = ProjectLoader()
+project = loader.load("my_tutorial.cmproj/project.tscproj")
+
+print(f"Canvas: {project.canvas.width}x{project.canvas.height}")
+print(f"Edit rate: {project.edit_rate} ticks/sec")
+print(f"Duration: {project.duration:.1f} seconds")
+print(f"Media items: {len(project.source_bin.items)}")
+
+# Modify in Python, then write back
+saver = ProjectSaver()
+saver.save(project, "output.tscproj")
+```
+
+You never need to open Camtasia. The file is just JSON; camtasio handles the schema details.
+
+## Project File Structure
+
+### File Format Overview
+
+Camtasia projects contain several files storing project data and media assets:
 
 ```python
 from camtasio import Project
@@ -26,7 +82,7 @@ print(f"- Cache files: *.cache (binary)")
 
 ### The .tscproj Format
 
-The core project file is a JSON document with a specific schema:
+The core project file uses JSON with a specific schema:
 
 ```python
 # Load and examine raw project data
@@ -351,7 +407,7 @@ def migrate_project_batch(project_paths, target_version="2024.0.0"):
     return migration_results
 ```
 
-## Low-Level Data Manipulation
+## Data Manipulation
 
 ### Direct JSON Manipulation
 
@@ -605,7 +661,7 @@ if doc_prefs_path.exists():
     print(f"Document preferences: {len(prefs)} settings")
 ```
 
-## Custom Format Extensions
+## Custom Extensions
 
 ### Creating Custom Media Types
 
@@ -776,7 +832,7 @@ csv_plugin.write(timeline_data, "timeline_export.csv")
 imported_timeline = csv_plugin.read("timeline_export.csv")
 ```
 
-## Performance Optimization
+## Performance
 
 ### Efficient JSON Processing
 
@@ -840,7 +896,7 @@ processed_scenes = list(
 )
 ```
 
-## Debugging and Validation Tools
+## Validation Tools
 
 ### Project Integrity Checker
 
@@ -960,18 +1016,18 @@ if check_result["warnings"]:
         print(f"  - {warning}")
 ```
 
-## Conclusion
+## Summary
 
-Understanding the Camtasia file format in depth allows for:
+Deep knowledge of Camtasia's file format enables:
 
-- **Advanced Automation**: Create sophisticated batch processing workflows
-- **Custom Tools**: Build specialized tools for specific use cases  
-- **Integration**: Integrate Camtasia projects with other video production pipelines
-- **Debugging**: Diagnose and fix project file issues
-- **Extension**: Add custom functionality beyond standard Camtasio features
+- **Automation**: Batch processing workflows
+- **Custom tools**: Specialized functionality for specific needs  
+- **Integration**: Connection with other video production systems
+- **Debugging**: Project file diagnostics and repair
+- **Extensions**: Features beyond standard Camtasia capabilities
 
-Continue exploring Camtasio's capabilities by returning to the practical guides:
+Continue with Camtasia automation:
 
-- **[Quick Start](quickstart.md)** - Basic operations and examples
-- **[Batch Processing](batch-processing.md)** - Automation workflows
+- **[Quick Start](quickstart.md)** - Basic operations
+- **[Batch Processing](batch-processing.md)** - Workflow automation
 - **[Scaling Operations](scaling-operations.md)** - Resolution management

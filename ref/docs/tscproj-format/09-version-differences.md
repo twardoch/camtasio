@@ -1,15 +1,15 @@
 # Version Differences and Compatibility
 
-Camtasia's `.tscproj` format has evolved over different versions. This document details the key differences and compatibility considerations.
+Camtasia's `.tscproj` format has changed over time. This document explains the key differences and compatibility requirements.
 
 ## Version Identification
 
-The version is identified by two key properties:
+Each project file contains two version fields:
 
 ```json
 {
   "version": "9.0",        // Format version
-  "editRate": 705600000,   // Time precision indicator
+  "editRate": 705600000,   // Time precision
   "authoringClientName": {
     "name": "Camtasia",
     "platform": "Mac",
@@ -23,14 +23,14 @@ The version is identified by two key properties:
 ### Version 4.0 (Legacy)
 - **Camtasia versions**: 2020 and earlier
 - **Edit rate**: 60
-- **Time units**: Simple ticks (60 per second)
-- **Features**: Basic editing capabilities
+- **Time units**: Basic ticks (60 per second)
+- **Features**: Limited editing capabilities
 
 ### Version 9.0 (Current)
 - **Camtasia versions**: 2021 and later
 - **Edit rate**: 705600000
 - **Time units**: High-precision units
-- **Features**: Advanced editing, sub-frame precision
+- **Features**: Advanced editing with sub-frame accuracy
 
 ## Key Differences
 
@@ -54,7 +54,7 @@ The version is identified by two key properties:
 }
 ```
 
-**Conversion formula**:
+**Conversion formulas**:
 ```
 v9_time = v4_time * (705600000 / 60)
 v4_time = v9_time * (60 / 705600000)
@@ -71,10 +71,10 @@ v4_time = v9_time * (60 / 705600000)
 }
 ```
 
-These properties are:
-- Not present in v4.0 files
-- Have sensible defaults if missing
-- Should be preserved when present
+These properties:
+- Don't exist in v4.0
+- Use sensible defaults when absent
+- Must be preserved if present
 
 ### 3. Media Structure Changes
 
@@ -109,11 +109,11 @@ These properties are:
 
 #### Version 4.0
 - Integer or float: `30`, `29.97`
-- Less precise for fractional rates
+- Approximate for fractional rates
 
 #### Version 9.0
 - String fractions: `"2997/100"`, `"12081/200"`
-- Exact representation of fractional rates
+- Exact representation
 
 ### 5. Animation Differences
 
@@ -152,7 +152,7 @@ These properties are:
 ### 6. Effect Enhancements
 
 #### Version 4.0
-- Basic effects set
+- Basic effects only
 - Limited parameters
 - No effect IDs
 
@@ -160,7 +160,7 @@ These properties are:
 - Extended effect library
 - Effect IDs for referencing
 - More parameter options
-- Support for custom effects
+- Custom effect support
 
 ### 7. Transition Improvements
 
@@ -193,8 +193,6 @@ These properties are:
 
 ### Reading Files
 
-When reading `.tscproj` files:
-
 1. **Check version first**
    ```javascript
    if (data.version === "4.0") {
@@ -223,11 +221,9 @@ When reading `.tscproj` files:
 
 ### Writing Files
 
-When creating or modifying files:
-
 1. **Maintain version consistency**
    - Don't mix v4.0 and v9.0 properties
-   - Use appropriate editRate for version
+   - Match editRate to version
 
 2. **Time value conversion**
    ```javascript
@@ -237,8 +233,8 @@ When creating or modifying files:
    ```
 
 3. **Preserve unknown properties**
-   - Keep properties you don't understand
-   - Maintains forward compatibility
+   - Keep unrecognized properties
+   - Ensures forward compatibility
 
 ### Upgrading Projects
 
@@ -281,10 +277,10 @@ To upgrade v4.0 to v9.0:
 }
 ```
 
-Generally no format differences, but:
+No format differences between platforms, but:
 - File paths use forward slashes on both
-- Media codec support may vary
-- Some effects platform-specific
+- Media codec support varies
+- Some effects are platform-specific
 
 ## Feature Support Matrix
 
@@ -303,21 +299,21 @@ Generally no format differences, but:
 ## Best Practices
 
 1. **Version Detection**
-   - Always check version before processing
-   - Support both versions when possible
-   - Fail gracefully for unknown versions
+   - Check version before processing
+   - Support both formats when possible
+   - Handle unknown versions gracefully
 
 2. **Time Handling**
-   - Use high precision math
+   - Use high-precision arithmetic
    - Round appropriately
    - Test edge cases
 
 3. **Property Management**
-   - Provide defaults for missing properties
-   - Preserve unknown properties
-   - Validate property types
+   - Set defaults for missing properties
+   - Preserve unrecognized properties
+   - Validate data types
 
 4. **Testing**
-   - Test with files from different Camtasia versions
-   - Verify time conversions
-   - Check effect compatibility
+   - Test with files from multiple Camtasia versions
+   - Verify time conversions work correctly
+   - Check effect compatibility across versions

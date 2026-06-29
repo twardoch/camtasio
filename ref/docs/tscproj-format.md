@@ -2,11 +2,11 @@
 
 ## Overview
 
-The `.tscproj` file is the project file format used by TechSmith Camtasia, a screen recording and video editing software. These files are stored in JSON format and contain all the information needed to reconstruct a video editing project, including media references, timeline structure, effects, and project settings.
+The `.tscproj` file is TechSmith Camtasia's project file. It's a JSON document containing all data needed to reconstruct a video editing project: media references, timeline structure, effects, and settings.
 
 ## File Structure
 
-A `.tscproj` file has the following top-level structure:
+A `.tscproj` file has this top-level structure:
 
 ```json
 {
@@ -40,18 +40,18 @@ A `.tscproj` file has the following top-level structure:
 - **`height`** (float): Canvas height in pixels
 
 ### Audio/Video Settings
-- **`videoFormatFrameRate`** (integer): Target frame rate (e.g., 30, 60)
-- **`audioFormatSampleRate`** (integer): Audio sample rate in Hz (e.g., 44100, 48000)
-- **`targetLoudness`** (float): Target loudness in LUFS (typically -18.0)
-- **`shouldApplyLoudnessNormalization`** (boolean): Whether to apply loudness normalization
-- **`allowSubFrameEditing`** (boolean): Whether sub-frame editing is allowed
+- **`videoFormatFrameRate`** (integer): Target frame rate (30, 60, etc.)
+- **`audioFormatSampleRate`** (integer): Audio sample rate in Hz (44100, 48000, etc.)
+- **`targetLoudness`** (float): Target loudness in LUFS (usually -18.0)
+- **`shouldApplyLoudnessNormalization`** (boolean): Enable loudness normalization
+- **`allowSubFrameEditing`** (boolean): Enable sub-frame editing
 
 ### Technical Properties
-- **`version`** (string): Project format version (e.g., "4.0", "9.0")
-- **`editRate`** (integer): Edit rate/time base (varies by version)
+- **`version`** (string): Project format version ("4.0", "9.0", etc.)
+- **`editRate`** (integer): Time base for timing calculations
   - Older versions: 60 (ticks per second)
-  - Newer versions: 705600000 (higher precision time base)
-- **`authoringClientName`** (object): Information about the Camtasia version
+  - Newer versions: 705600000 (higher precision)
+- **`authoringClientName`** (object): Camtasia version information
   ```json
   {
     "name": "Camtasia",
@@ -62,7 +62,7 @@ A `.tscproj` file has the following top-level structure:
 
 ## Source Media (sourceBin)
 
-The `sourceBin` array contains all media files imported into the project:
+The `sourceBin` array contains all imported media files:
 
 ```json
 "sourceBin": [
@@ -79,15 +79,15 @@ The `sourceBin` array contains all media files imported into the project:
 ```
 
 ### Source Item Properties
-- **`id`** (integer): Unique identifier for this source
-- **`src`** (string): Relative path to the media file
+- **`id`** (integer): Unique identifier
+- **`src`** (string): Relative path to media file
 - **`rect`** (array[4]): Bounding rectangle [x, y, width, height]
 - **`lastMod`** (string): Last modification timestamp (ISO format)
 - **`loudnessNormalization`** (boolean): Audio normalization setting
 
 ### Source Tracks
 
-Each source item contains `sourceTracks` describing the media streams:
+Each source item contains `sourceTracks` describing media streams:
 
 ```json
 "sourceTracks": [
@@ -108,14 +108,14 @@ Each source item contains `sourceTracks` describing the media streams:
 ]
 ```
 
-#### Track Type Values
-- **`type: 0`**: Video track
-- **`type: 1`**: Image/still track
-- **`type: 2`**: Audio track
+#### Track Types
+- **`type: 0`**: Video
+- **`type: 1`**: Image
+- **`type: 2`**: Audio
 
 ## Timeline Structure
 
-The timeline contains the actual edit information:
+The timeline contains edit information:
 
 ```json
 "timeline": {
@@ -134,7 +134,7 @@ The timeline contains the actual edit information:
 
 ### Track Structure
 
-Each track in the timeline contains media items:
+Timeline tracks contain media items:
 
 ```json
 {
@@ -156,20 +156,20 @@ Each track in the timeline contains media items:
 
 ## Media Types
 
-Media items on the timeline have different `_type` values:
+Media items use these `_type` values:
 
-### Video Media Types
-- **`VMFile`**: Video Media File - references video from sourceBin
-- **`ScreenVMFile`**: Screen recording video file
-- **`IMFile`**: Image Media File - for still images
-- **`UnifiedMedia`**: Combined video and audio media
+### Video Types
+- **`VMFile`**: Video from sourceBin
+- **`ScreenVMFile`**: Screen recording
+- **`IMFile`**: Still image
+- **`UnifiedMedia`**: Combined video/audio
 
-### Audio Media Types
-- **`AMFile`**: Audio Media File
+### Audio Types
+- **`AMFile`**: Audio file
 
-### Annotation Types
-- **`Callout`**: Callout/annotation object
-- **`Group`**: Group of media items
+### Annotations
+- **`Callout`**: Annotation object
+- **`Group`**: Group of items
 
 ### Common Media Properties
 
@@ -209,16 +209,16 @@ Media items on the timeline have different `_type` values:
 
 ## Timing and Duration
 
-Time values in the project are represented differently based on the version:
+Time values depend on project version:
 
-- **Older versions**: Time in ticks (60 ticks per second)
-- **Newer versions**: Time in high-precision units (editRate-based)
+- **Older versions**: Ticks (60 per second)
+- **Newer versions**: High-precision units (based on editRate)
 
-Common time-related properties:
-- **`start`**: Start time on timeline
-- **`duration`**: Duration on timeline
-- **`mediaStart`**: Start point within source media
-- **`mediaDuration`**: Duration from source media
+Key timing properties:
+- **`start`**: Timeline start position
+- **`duration`**: Timeline duration
+- **`mediaStart`**: Source media start point
+- **`mediaDuration`**: Source media duration
 
 ## Keyframe Animation
 
@@ -241,15 +241,15 @@ Animated properties use keyframes:
 ```
 
 ### Keyframe Properties
-- **`time`**: Keyframe time
-- **`endTime`**: End time of this keyframe segment
-- **`value`**: Value at this keyframe
-- **`interp`**: Interpolation type ("linr" = linear)
-- **`duration`**: Duration to next keyframe
+- **`time`**: Keyframe timestamp
+- **`endTime`**: Segment end time
+- **`value`**: Property value
+- **`interp`**: Interpolation ("linr" = linear)
+- **`duration`**: Time to next keyframe
 
 ## Callout Objects
 
-Callouts are annotation objects with special properties:
+Callouts are annotation elements:
 
 ```json
 {
@@ -278,7 +278,7 @@ Callouts are annotation objects with special properties:
 
 ## Effects and Transitions
 
-Effects are stored in the `effects` array of media items:
+Effects appear in media item `effects` arrays:
 
 ```json
 "effects": [
@@ -289,7 +289,7 @@ Effects are stored in the `effects` array of media items:
 ]
 ```
 
-Transitions between clips are stored in a `transitions` array:
+Transitions between clips:
 
 ```json
 "transitions": [
@@ -311,47 +311,47 @@ Transitions between clips are stored in a `transitions` array:
 ### Camtasia 2020 and Earlier
 - Version: "4.0"
 - Edit rate: 60
-- Simpler time representation
+- Simple timing
 
 ### Camtasia 2021 and Later
 - Version: "9.0"
 - Edit rate: 705600000
-- High-precision time values
-- Additional properties like `allowSubFrameEditing`
+- High-precision timing
+- `allowSubFrameEditing` support
 
 ## File References
 
-All media files are referenced relative to the project file location, typically in a `media/` subdirectory with timestamp-based folders:
+Media files use relative paths, typically organized in timestamped folders:
 
 ```
 ./media/1752976336.728338/filename.mp4
 ```
 
-## Best Practices for Parsing
+## Parsing Guidelines
 
-1. **Version Checking**: Always check the `version` field to handle format differences
-2. **Time Conversion**: Be aware of different `editRate` values when calculating times
-3. **Media References**: Handle missing media files gracefully
-4. **Property Types**: Some numeric properties may be stored as strings (e.g., fractions like "2997/100")
-5. **Optional Properties**: Not all properties are present in all files
+1. **Check version first** - Handle format differences appropriately
+2. **Convert time values** - Account for different editRate values
+3. **Handle missing media** - Files may be moved or deleted
+4. **Watch property types** - Numbers sometimes stored as strings
+5. **Expect missing fields** - Not all properties appear in every file
 
-## Common Use Cases
+## Common Operations
 
-### Scaling a Project
-When scaling a project (like changing from 1080p to 4K), modify:
-- Root `width` and `height`
-- All `rect` and `trackRect` arrays
-- Position properties (`translation0`, `translation1`)
-- Size properties (`scale0`, `scale1`, `width`, `height` in definitions)
-- Keyframe values for animated properties
+### Project Scaling
+When changing resolution (1080p to 4K, etc.):
+- Update root `width` and `height`
+- Adjust all `rect` and `trackRect` values
+- Modify position properties (`translation0`, `translation1`)
+- Scale size properties (`scale0`, `scale1`, `width`, `height`)
+- Update animated property keyframe values
 
-### Finding Media Duration
-To calculate actual duration in seconds:
+### Duration Calculation
+Convert timeline duration to seconds:
 ```
 duration_seconds = duration / editRate
 ```
 
-### Media Type Detection
-- Check `numChannels > 0` for audio tracks
-- Check `trackRect` dimensions for video tracks
-- `type` field indicates track type (0=video, 1=image, 2=audio)
+### Media Type Identification
+- Audio tracks: `numChannels > 0`
+- Video tracks: Check `trackRect` dimensions
+- Track types: `type` field (0=video, 1=image, 2=audio)

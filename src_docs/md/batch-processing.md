@@ -1,10 +1,10 @@
 # Batch Processing
 
-Efficient automation techniques for processing multiple Camtasia projects with Camtasio.
+Automate processing of multiple Camtasia projects efficiently.
 
 ## Introduction to Batch Processing
 
-Batch processing allows you to apply operations to multiple projects automatically, saving time and ensuring consistency across your video library.
+Batch processing applies operations to multiple projects automatically, saving time and ensuring consistency.
 
 ### Common Batch Operations
 
@@ -929,7 +929,7 @@ robust_results = robust_batch_processor(project_paths, operations)
 
 ## Next Steps
 
-You've now learned comprehensive batch processing techniques with Camtasio. Continue exploring:
+Continue exploring:
 
 - **[File Format Details](file-format.md)** - Deep dive into Camtasia file formats
 - **[Quick Start](quickstart.md)** - Return to basic operations

@@ -1,92 +1,92 @@
 # Camtasia .tscproj Format Specification
 
-## TL;DR
+## Summary
 
-The `.tscproj` file is Camtasia's project file format stored as JSON. It contains:
-- **Canvas dimensions** (`width`, `height`) and project settings
-- **Source media** (`sourceBin`) - all imported files with metadata  
-- **Timeline structure** (`timeline`) - scenes, tracks, and media clips
-- **Media transformations** - position, scale, rotation, opacity
-- **Animations** - keyframe-based property changes over time
-- **Effects and transitions** - visual/audio effects between clips
+The `.tscproj` file is Camtasia's project format saved as JSON. It includes:
+- **Canvas size** (`width`, `height`) and basic settings
+- **Source media** (`sourceBin`) – imported files with metadata
+- **Timeline layout** (`timeline`) – scenes, tracks, and clips
+- **Transforms** – position, scale, rotation, opacity
+- **Animations** – keyframe-driven property changes over time
+- **Effects & transitions** – visual/audio effects between clips
 
-Key scaling properties include:
-- Root `width`/`height` for canvas
-- `rect` arrays `[x, y, width, height]` for media bounds
-- `translation0`/`translation1` for X/Y positioning
-- `scale0`/`scale1` for X/Y scaling factors
-- Keyframe values for animated properties
+Key scaling properties:
+- Root `width`/`height`: canvas dimensions
+- `rect`: `[x, y, width, height]` defining media bounds
+- `translation0`/`translation1`: X/Y positioning
+- `scale0`/`scale1`: X/Y scaling factors
+- Keyframe values: for animated properties
 
-## Table of Contents
+## Contents
 
-1. **@01-overview.md** - General Structure and Purpose
-   - JSON structure overview
-   - Main components (root, sourceBin, timeline)
-   - File references and paths
-   - Use cases and applications
+1. **@01-overview.md** – General Structure and Purpose  
+   - JSON structure  
+   - Main components: root, sourceBin, timeline  
+   - File references and paths  
+   - Use cases  
 
-2. **@02-root-properties.md** - Root Level Properties
-   - Project metadata (title, author, description)
-   - Canvas dimensions and aspect ratio
-   - Frame rate and audio settings
-   - Version and authoring client info
-   - Edit rate and time representation
+2. **@02-root-properties.md** – Root-Level Settings  
+   - Metadata: title, author, description  
+   - Canvas dimensions and aspect ratio  
+   - Frame rate and audio config  
+   - Version info and authoring tool details  
+   - Edit rate and time format  
 
-3. **@03-source-media.md** - Source Media Management
-   - sourceBin structure and organization
-   - Media file references and paths
-   - Source tracks (video, audio, image)
-   - Track types and metadata
-   - Loudness normalization settings
+3. **@03-source-media.md** – Media Management  
+   - `sourceBin` layout  
+   - File references and paths  
+   - Track types: video, audio, image  
+   - Metadata per source  
+   - Loudness normalization  
 
-4. **@04-timeline-structure.md** - Timeline Organization
-   - Scene track hierarchy
-   - Track indices and layering
-   - Media clip placement
-   - Track parameters and settings
-   - Magnetic tracks and locking
+4. **@04-timeline-structure.md** – Timeline Layout  
+   - Scene and track hierarchy  
+   - Track indexing and layering  
+   - Clip placement on tracks  
+   - Track parameters and settings  
+   - Magnetic tracks and locking behavior  
 
-5. **@05-media-types.md** - Media Item Types
-   - Video types (VMFile, ScreenVMFile, UnifiedMedia)
-   - Audio types (AMFile)
-   - Image types (IMFile)
-   - Annotation types (Callout, Group)
-   - Text and shape callouts
+5. **@05-media-types.md** – Media Item Categories  
+   - Video: VMFile, ScreenVMFile, UnifiedMedia  
+   - Audio: AMFile  
+   - Image: IMFile  
+   - Annotations: Callout, Group  
+   - Text and shape callouts  
 
-6. **@06-animation-keyframes.md** - Animation System
-   - Keyframe structure and properties
-   - Interpolation types
-   - Animated parameters
-   - Time representation in keyframes
-   - Animation tracks
+6. **@06-animation-keyframes.md** – Animation Mechanics  
+   - Keyframe structure  
+   - Interpolation methods  
+   - Animated properties  
+   - Time handling in keyframes  
+   - Animation tracks  
 
-7. **@07-effects-transitions.md** - Effects and Transitions
-   - Effect application and parameters
-   - Transition types and duration
-   - Audio and visual pre-roll
-   - Effect attributes
-   - Transition placement
+7. **@07-effects-transitions.md** – Effects and Transitions  
+   - Applying and configuring effects  
+   - Transition types and duration  
+   - Audio/visual pre-roll  
+   - Effect attributes  
+   - Transition placement  
 
-8. **@08-positioning-scaling.md** - Coordinate Systems
-   - Canvas coordinate system
-   - Rectangle arrays (rect, trackRect)
-   - Translation and positioning
-   - Scale factors and transformations
-   - Rotation (X, Y, Z axes)
-   - Geometry cropping
-   - Opacity and blending
+8. **@08-positioning-scaling.md** – Coordinate Systems  
+   - Canvas coordinates  
+   - Rectangle arrays (`rect`, `trackRect`)  
+   - Translation and positioning  
+   - Scale factors and transformations  
+   - Rotation (X, Y, Z axes)  
+   - Cropping  
+   - Opacity and blending  
 
-9. **@09-version-differences.md** - Version Compatibility
-   - Version 4.0 (Camtasia 2020 and earlier)
-   - Version 9.0 (Camtasia 2021+)
-   - Edit rate differences
-   - Time representation changes
-   - Feature additions by version
-   - Backward compatibility considerations
+9. **@09-version-differences.md** – Version Compatibility  
+   - Version 4.0: Camtasia 2020 and earlier  
+   - Version 9.0: Camtasia 2021+  
+   - Edit rate differences  
+   - Time format changes  
+   - Feature updates by version  
+   - Backward compatibility notes  
 
 ## Quick Reference
 
-### Essential Properties for Scaling
+### Core Scaling Properties
 ```json
 {
   "width": 1920.0,           // Canvas width
@@ -110,6 +110,6 @@ Key scaling properties include:
 }
 ```
 
-### Version Detection
-- **Version 4.0**: `editRate: 60`
+### Version Check
+- **Version 4.0**: `editRate: 60`  
 - **Version 9.0**: `editRate: 705600000`

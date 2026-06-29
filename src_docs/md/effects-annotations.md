@@ -1,12 +1,12 @@
 # Effects & Annotations
 
-Comprehensive guide to working with visual effects, callouts, annotations, and transitions in Camtasia projects.
+Guide to visual effects, callouts, annotations, and transitions in Camtasia projects.
 
 ## Understanding Effects and Annotations
 
 ### Types of Visual Elements
 
-Camtasia supports various types of visual enhancements:
+Camtasia supports several visual enhancement types:
 
 ```python
 from camtasio import Project

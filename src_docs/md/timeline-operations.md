@@ -1,10 +1,10 @@
 # Timeline Operations
 
-Advanced techniques for manipulating timelines, tracks, and media placement in Camtasia projects.
+Techniques for manipulating timelines, tracks, and media placement in Camtasia projects.
 
-## Timeline Structure Deep Dive
+## Timeline Structure
 
-### Understanding the Timeline Hierarchy
+### Understanding the Hierarchy
 
 ```python
 from camtasio import Project
@@ -41,7 +41,7 @@ print(f"Time base: {timeline.time_base}")
 
 ## Track Management
 
-### Track Types and Properties
+### Track Types
 
 ```python
 # Different track types
@@ -92,7 +92,7 @@ duplicated_track = timeline.duplicate_track(track_index=1)
 timeline.remove_track(track_index=3)
 ```
 
-### Track Properties Modification
+### Track Property Modification
 
 ```python
 # Modify video track properties
@@ -112,9 +112,9 @@ video_track.enabled = True
 audio_track.enabled = False
 ```
 
-## Media Item Operations
+## Media Operations
 
-### Adding Media to Timeline
+### Adding Media
 
 ```python
 # Add video media to track
@@ -148,7 +148,7 @@ image_media = video_track.add_media(
 )
 ```
 
-### Media Positioning and Timing
+### Media Positioning
 
 ```python
 # Move media in time
@@ -194,7 +194,7 @@ media_item.crop(
 media_item.opacity = 0.7
 ```
 
-## Timeline Editing Operations
+## Timeline Editing
 
 ### Cutting and Splitting
 
@@ -241,7 +241,7 @@ duplicated = timeline.duplicate_media(
 )
 ```
 
-### Timeline Ripple Operations
+### Ripple Operations
 
 ```python
 # Insert gap in timeline
@@ -265,7 +265,7 @@ timeline.ripple_delete(
 )
 ```
 
-## Advanced Timeline Features
+## Advanced Features
 
 ### Timeline Markers
 
@@ -293,7 +293,7 @@ for marker in markers:
 markers_in_range = timeline.get_markers_in_range(5.0, 15.0)
 ```
 
-### Timeline Groups
+### Track Groups
 
 ```python
 # Create track group
@@ -317,7 +317,7 @@ group.remove_track(timeline.tracks[1])
 timeline.ungroup(group)
 ```
 
-### Timeline Effects
+### Track Effects
 
 ```python
 # Apply effect to entire track
@@ -385,7 +385,7 @@ stats = analyze_timeline(timeline)
 print(f"Timeline has {stats['media_count']} media items across {stats['track_count']} tracks")
 ```
 
-### Finding Timeline Issues
+### Finding Issues
 
 ```python
 # Find empty tracks
@@ -407,7 +407,7 @@ unused_media = timeline.find_unused_source_media()
 
 ## Timeline Optimization
 
-### Cleanup Operations
+### Cleanup
 
 ```python
 # Remove empty tracks
@@ -423,7 +423,7 @@ timeline.remove_duplicate_media()
 timeline.optimize_media_order()
 ```
 
-### Performance Optimization
+### Performance
 
 ```python
 # Reduce timeline complexity
@@ -436,7 +436,7 @@ timeline.merge_adjacent_media(similarity_threshold=0.95)
 timeline.optimize_track_structure()
 ```
 
-## Timeline Export and Import
+## Export and Import
 
 ### Exporting Timeline Data
 
@@ -471,7 +471,7 @@ project.apply_timeline_template(
 )
 ```
 
-## Working with Multiple Timelines
+## Multiple Timelines
 
 ### Timeline Comparison
 
@@ -504,7 +504,7 @@ timeline1.import_tracks_from(
 )
 ```
 
-## Timeline Synchronization
+## Synchronization
 
 ### Audio-Video Sync
 
@@ -537,7 +537,7 @@ timeline.auto_align_tracks(
 
 ## Next Steps
 
-Continue exploring advanced Camtasio features:
+Continue exploring Camtasio features:
 
 - **[Media Management](media-management.md)** - Working with video, audio, and images
 - **[Effects & Annotations](effects-annotations.md)** - Adding visual elements and callouts

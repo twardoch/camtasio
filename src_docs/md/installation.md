@@ -1,20 +1,20 @@
 # Installation Guide
 
-Complete installation instructions for Camtasio across different environments and use cases.
+Install Camtasio in any environment.
 
 ## Requirements
 
 - **Python**: 3.11 or higher
 - **Operating System**: Windows, macOS, Linux
-- **Dependencies**: See `pyproject.toml` for complete list
+- **Dependencies**: See `pyproject.toml` for the full list
 
 ### Core Dependencies
 
-- `pydantic >= 2.0` - Data validation and serialization
-- `click >= 8.0` - Command-line interface framework  
-- `fire >= 0.5` - Alternative CLI framework
-- `rich >= 13.0` - Rich terminal output
-- `loguru >= 0.7` - Advanced logging
+- `pydantic >= 2.0` – Data validation and serialization  
+- `click >= 8.0` – Command-line interface framework  
+- `fire >= 0.5` – Alternative CLI framework  
+- `rich >= 13.0` – Rich terminal output  
+- `loguru >= 0.7` – Advanced logging  
 
 ## Installation Methods
 
@@ -31,7 +31,7 @@ pip install camtasio==1.0.0
 pip install camtasio[dev]
 ```
 
-### Modern Installation (uv) - Recommended
+### Modern Installation (uv) – Recommended
 
 ```bash
 # Install uv first (if not already installed)
@@ -49,11 +49,11 @@ uv tool install camtasio
 
 ### Development Installation
 
-For contributing to Camtasio or using the latest features:
+For contributors or early adopters:
 
 ```bash
 # Clone the repository
-git clone https://github.com/terragon/camtasio.git
+git clone https://github.com/twardoch/camtasio.git
 cd camtasio
 
 # Install in development mode with uv
@@ -119,10 +119,10 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 uv tool install camtasio
 ```
 
-**Windows-Specific Notes:**
-- Ensure Python is in your PATH
-- Consider using Windows Terminal for better CLI experience
-- File paths with spaces should be quoted in CLI commands
+**Notes:**
+- Make sure Python is in your PATH.
+- Use Windows Terminal for a better CLI experience.
+- Quote file paths with spaces.
 
 ### macOS
 
@@ -135,9 +135,9 @@ uv tool install camtasio
 pip3 install camtasio
 ```
 
-**macOS-Specific Notes:**
-- Use `pip3` instead of `pip` on systems with Python 2/3 coexistence
-- Consider using pyenv for Python version management
+**Notes:**
+- Use `pip3` if you have both Python 2 and 3 installed.
+- Consider using pyenv for managing Python versions.
 
 ### Linux
 
@@ -156,9 +156,9 @@ sudo dnf install python3-pip
 pip3 install camtasio
 ```
 
-**Linux-Specific Notes:**
-- Some distributions require `python3-dev` for certain dependencies
-- Consider using your distribution's package manager for Python
+**Notes:**
+- Some systems require `python3-dev` for certain dependencies.
+- Use your package manager to install Python when possible.
 
 ## Virtual Environment Setup
 
@@ -197,13 +197,13 @@ uv pip install camtasio
 conda create -n camtasio python=3.11
 conda activate camtasio
 
-# Install via pip (camtasio not yet on conda-forge)
+# Install via pip (not on conda-forge yet)
 pip install camtasio
 ```
 
 ## Verification
 
-After installation, verify everything works:
+Check that installation worked:
 
 ```bash
 # Check CLI installation
@@ -332,9 +332,9 @@ pip install camtasio
 
 #### Windows: "Python not found"
 
-1. Install Python from python.org
-2. Ensure "Add to PATH" is checked during installation
-3. Restart terminal/PowerShell
+1. Install Python from python.org  
+2. Check "Add to PATH" during setup  
+3. Restart your terminal  
 
 #### macOS: SSL Certificate Errors
 
@@ -384,7 +384,7 @@ processor = BatchProcessor(workers=4)
 
 ### VS Code
 
-Install recommended extensions:
+Install these extensions:
 
 ```json
 {
@@ -399,18 +399,18 @@ Install recommended extensions:
 
 ### PyCharm
 
-1. Create new Python interpreter pointing to your virtual environment
-2. Install Camtasio in the interpreter
-3. Mark `src` directory as Sources Root
+1. Set up a Python interpreter pointing to your virtual environment  
+2. Install Camtasio in that interpreter  
+3. Mark the `src` directory as Sources Root  
 
 ## Next Steps
 
-- **[Quick Start](quickstart.md)** - Get started with basic operations
-- **[Project Basics](project-basics.md)** - Learn core concepts
-- **[CLI Reference](../cli-reference.md)** - Complete command documentation
+- **[Quick Start](quickstart.md)** – Begin with basic operations  
+- **[Project Basics](project-basics.md)** – Understand core concepts  
+- **[CLI Reference](../cli-reference.md)** – Full command documentation  
 
 ## Getting Help
 
-- **GitHub Issues**: Report bugs and request features
-- **Documentation**: Browse the complete documentation
-- **Community**: Join discussions in GitHub Discussions
+- **GitHub Issues** – Report bugs or suggest features  
+- **Documentation** – Read everything else  
+- **Community** – Join discussions on GitHub

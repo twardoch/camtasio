@@ -1,6 +1,6 @@
 # Timeline Structure
 
-The timeline is where all editing decisions are stored. It organizes media clips, effects, and transitions into a hierarchical structure of scenes and tracks.
+The timeline stores all editing decisions. It organizes media clips, effects, and transitions into a hierarchical structure of scenes and tracks.
 
 ## Timeline Root Structure
 

@@ -38,6 +38,13 @@ class ProjectLoader:
         """
         path = Path(file_path)
 
+        # Handle .cmproj directories: look for project.tscproj inside
+        if path.is_dir() and path.suffix == ".cmproj":
+            tscproj = path / "project.tscproj"
+            if not tscproj.exists():
+                raise FileNotFoundError(f"project.tscproj not found in: {path}")
+            path = tscproj
+
         if not path.exists():
             raise FileNotFoundError(f"Project file not found: {path}")
 
@@ -107,6 +114,17 @@ class ProjectLoader:
             for field in required_fields:
                 if field not in data:
                     errors.append(f"Missing required field for version {version}: {field}")
+
+        # Check numeric types for width and height (bool is subclass of int, exclude it)
+        def _is_numeric(v: object) -> bool:
+            return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+        if "width" in data and not _is_numeric(data["width"]):
+            errors.append("width must be a number")
+        if "height" in data and not _is_numeric(data["height"]):
+            errors.append("height must be a number")
+        if "editRate" in data and not _is_numeric(data["editRate"]):
+            errors.append("editRate must be a number")
 
         # Check sourceBin structure if present
         if "sourceBin" in data:

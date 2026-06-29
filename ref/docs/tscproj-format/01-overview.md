@@ -2,40 +2,35 @@
 
 ## Purpose and Usage
 
-The `.tscproj` file format is the native project format for TechSmith Camtasia, a professional screen recording and video editing software. These files store complete project information including:
+The `.tscproj` file is the native project format for TechSmith Camtasia, a screen recording and video editing application. These files store all project data including:
 
 - Media references (video, audio, images)
-- Timeline arrangement and editing decisions
+- Timeline structure and edits
 - Visual effects and transitions
 - Annotations and callouts
 - Project settings and metadata
 
 ## File Format
 
-`.tscproj` files are stored as **JSON** (JavaScript Object Notation), making them:
-- Human-readable when opened in a text editor
-- Programmatically parseable and modifiable
-- Version control friendly
+`.tscproj` files are JSON (JavaScript Object Notation) documents, which means they are:
+- Human-readable in any text editor
+- Easily parsed and modified by scripts
+- Suitable for version control systems
 - Cross-platform compatible
 
 ## JSON Structure Overview
 
-The top-level structure follows this pattern:
+Top-level structure example:
 
 ```json
 {
-  // Project metadata and settings
   "title": "Project Title",
   "author": "Author Name",
   "description": "Project Description",
-  
-  // Canvas and format settings
   "width": 1920.0,
   "height": 1080.0,
   "videoFormatFrameRate": 60,
   "audioFormatSampleRate": 44100,
-  
-  // Version information
   "version": "9.0",
   "editRate": 705600000,
   "authoringClientName": {
@@ -43,11 +38,7 @@ The top-level structure follows this pattern:
     "platform": "Mac",
     "version": "2025.1.4"
   },
-  
-  // Media sources
   "sourceBin": [...],
-  
-  // Timeline structure
   "timeline": {...}
 }
 ```
@@ -55,54 +46,54 @@ The top-level structure follows this pattern:
 ## Main Components
 
 ### 1. Root Properties
-The root level contains project-wide settings:
-- Canvas dimensions (width, height)
-- Frame rate and audio settings
-- Version and compatibility information
-- Audio normalization settings
+Global project settings:
+- Canvas size (`width`, `height`)
+- Frame rate and audio parameters
+- Format version info
+- Audio normalization preferences
 
 ### 2. Source Bin (`sourceBin`)
-An array containing all imported media files:
-- Each item has a unique ID
-- References to actual media files (relative paths)
-- Source metadata (dimensions, duration, tracks)
+Array of imported media assets:
+- Unique ID per item
+- File paths relative to project location
+- Metadata like dimensions, duration, track count
 - Import timestamps
 
 ### 3. Timeline (`timeline`)
-The editing timeline structure:
-- Scene-based organization
-- Multiple tracks (layers)
-- Media clips with timing information
-- Effects and transitions
+The edit timeline:
+- Scene organization
+- Multiple tracks/layers
+- Clip timing and placement
+- Applied effects and transitions
 
 ## File References
 
-Media files are referenced using **relative paths** from the project file location:
+Media files use relative paths from the project file:
 
 ```json
 "src": "./media/1752976336.728338/video.mp4"
 ```
 
-The typical structure:
-- `./media/` - Standard media folder
-- `{timestamp}/` - Unique folder per import session
-- `{filename}` - Original or processed media file
+Folder structure:
+- `./media/` – Default media directory
+- `{timestamp}/` – Session-specific folder
+- `{filename}` – Media file name
 
 ## Coordinate System
 
-Camtasia uses a standard 2D coordinate system:
-- Origin (0,0) at top-left
-- X increases rightward
-- Y increases downward
-- All measurements in pixels
+Standard 2D layout:
+- Top-left corner is (0,0)
+- X grows right
+- Y grows down
+- All units in pixels
 
 ## Time Representation
 
-Time values vary by version:
-- **Version 4.0**: Simple tick system (60 ticks/second)
-- **Version 9.0**: High-precision units based on `editRate`
+Timing depends on version:
+- **Version 4.0**: 60 ticks per second
+- **Version 9.0**: High-resolution time based on `editRate`
 
-To convert to seconds:
+Convert time to seconds:
 ```
 seconds = timeValue / editRate
 ```
@@ -110,59 +101,60 @@ seconds = timeValue / editRate
 ## Common Use Cases
 
 ### 1. Project Scaling
-Modify canvas dimensions and scale all content:
-- Update root `width` and `height`
-- Scale all `rect` arrays
-- Adjust position and scale parameters
-- Update keyframe values
+Resize canvas and adjust content:
+- Change root `width` and `height`
+- Scale `rect` values accordingly
+- Update position and keyframe data
 
 ### 2. Media Management
-- Replace file paths when moving projects
-- Update source references
-- Manage missing media
+Handle moved or missing assets:
+- Replace outdated file paths
+- Repair broken references
+- Reconnect media when relocating projects
 
 ### 3. Batch Processing
-- Automate repetitive edits
-- Apply consistent settings across projects
-- Generate projects programmatically
+Automate repetitive tasks:
+- Apply uniform edits across multiple projects
+- Generate templates or new projects via script
 
 ### 4. Analysis and Reporting
-- Extract project statistics
+Extract useful data:
+- Gather project stats
 - Audit media usage
-- Generate edit decision lists (EDL)
+- Create edit decision lists (EDL)
 
 ## File Size Considerations
 
-`.tscproj` files are typically small (KB to MB range) as they only contain:
-- References to media (not the media itself)
-- Editing metadata
-- Effects parameters
+`.tscproj` files are small (typically KB to low MB) because they contain:
+- References to external media
+- Edit metadata
+- Effect configurations
 
-The actual media files are stored separately in the media folder.
+Actual video/audio content lives in the separate media folder.
 
 ## Best Practices
 
 1. **Backup Strategy**
-   - Keep `.tscproj` files with their media folders
+   - Store `.tscproj` with its media folder
    - Use relative paths for portability
-   - Version control the `.tscproj` files
+   - Track `.tscproj` changes with version control
 
 2. **Compatibility**
-   - Check version before processing
-   - Handle both v4.0 and v9.0 formats
-   - Preserve unknown properties for forward compatibility
+   - Check the `version` field before processing
+   - Support both v4.0 and v9.0 formats
+   - Retain unrecognized fields to avoid breaking future versions
 
 3. **Validation**
-   - Verify media file existence
-   - Check dimension consistency
-   - Validate time values
+   - Confirm referenced media files exist
+   - Check that canvas dimensions match content
+   - Validate time values against `editRate`
 
 ## Error Handling
 
-Common issues when working with `.tscproj` files:
-- Missing media files (broken references)
-- Version incompatibilities
-- Invalid JSON syntax
-- Inconsistent dimensions or time values
+Common issues:
+- Missing media files
+- Version mismatches
+- Invalid JSON formatting
+- Inconsistent canvas sizes or timing data
 
-Always validate the JSON structure and check media availability before processing.
+Always validate JSON syntax and verify media availability before running any automated process.

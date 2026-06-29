@@ -230,7 +230,7 @@ class Timeline:
         scene_track = data.get("sceneTrack", {})
         scenes = scene_track.get("scenes", [])
         if scenes:
-            csml = scenes[0].get("csml", {})
+            csml = scenes[0].get("csml") or {}
             track_data = csml.get("tracks", [])
 
             for track_dict in track_data:

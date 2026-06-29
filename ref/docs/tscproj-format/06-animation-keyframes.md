@@ -1,10 +1,10 @@
 # Animation and Keyframe System
 
-Camtasia supports keyframe-based animation for many properties, allowing smooth transitions and movements over time.
+Camtasia supports keyframe-based animation for many properties, enabling smooth transitions and movements over time.
 
 ## Animation Structure
 
-Animated properties replace simple values with keyframe objects:
+Animated properties replace static values with keyframe objects:
 
 ```json
 // Static property
@@ -46,50 +46,50 @@ Animated properties replace simple values with keyframe objects:
 ## Keyframe Properties
 
 ### `type` (string)
-- **Description**: Data type of the animated property
-- **Values**: `"double"`, `"int"`, `"color"`
-- **Required**: Yes
+Data type of the animated property.  
+Values: `"double"`, `"int"`, `"color"`  
+Required: Yes
 
 ### `defaultValue` (varies)
-- **Description**: Default value when no keyframes apply
-- **Type**: Matches the `type` field
-- **Required**: Yes
+Default value when no keyframes apply.  
+Type: Matches the `type` field.  
+Required: Yes
 
 ### `keyframes` (array)
-- **Description**: Array of keyframe objects
-- **Required**: Yes
-- **Note**: Must be in chronological order
+Array of keyframe objects.  
+Required: Yes  
+Note: Must be in chronological order
 
 ## Individual Keyframe Properties
 
 ### `time` (integer)
-- **Description**: Start time of this keyframe
-- **Units**: Media item's local time (0 = start of clip)
-- **Required**: Yes
+Start time of this keyframe.  
+Units: Media item's local time (0 = start of clip)  
+Required: Yes
 
 ### `endTime` (integer)
-- **Description**: End time of this keyframe's influence
-- **Units**: Media item's local time
-- **Required**: Yes
-- **Note**: Usually matches next keyframe's `time`
+End time of this keyframe's influence.  
+Units: Media item's local time  
+Required: Yes  
+Note: Usually matches the next keyframe's `time`
 
 ### `value` (varies)
-- **Description**: Property value at this keyframe
-- **Type**: Matches parent's `type`
-- **Required**: Yes
+Property value at this keyframe.  
+Type: Matches parent's `type`  
+Required: Yes
 
 ### `interp` (string)
-- **Description**: Interpolation method to next keyframe
-- **Values**:
-  - `"linr"`: Linear interpolation
-  - `"step"`: Step/hold (no interpolation)
-  - `"bezr"`: Bezier curve
-- **Default**: `"linr"`
+Interpolation method to next keyframe.  
+Values:
+- `"linr"`: Linear interpolation
+- `"step"`: Step/hold (no interpolation)
+- `"bezr"`: Bezier curve  
+Default: `"linr"`
 
 ### `duration` (integer)
-- **Description**: Duration to next keyframe
-- **Units**: Same as `time`
-- **Calculation**: `nextKeyframe.time - this.time`
+Duration to next keyframe.  
+Units: Same as `time`  
+Calculation: `nextKeyframe.time - this.time`
 
 ## Animatable Properties
 
@@ -258,26 +258,20 @@ seconds = time / editRate
 ## Interpolation Types
 
 ### Linear (`"linr"`)
-- Constant rate of change
-- Straight line between keyframes
-- Most common type
+Constant rate of change. Straight line between keyframes. Most common.
 
 ### Step (`"step"`)
-- No interpolation
-- Instant change at keyframe
-- Used for on/off states
+Instant change at keyframe. No interpolation. Good for on/off states.
 
 ### Bezier (`"bezr"`)
-- Smooth curved interpolation
-- Acceleration/deceleration
-- Natural motion effects
+Smooth curved interpolation. Acceleration/deceleration. Natural motion.
 
 ## Best Practices
 
 1. **Keyframe Organization**
    - Keep keyframes in chronological order
    - Ensure `endTime` matches next `time`
-   - Set proper `duration` values
+   - Set correct `duration` values
 
 2. **Performance**
    - Minimize keyframe count

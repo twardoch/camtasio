@@ -1,6 +1,6 @@
 # Media Item Types
 
-Media items are the individual clips, images, audio files, and annotations placed on the timeline. Each media type has specific properties and behaviors.
+Media items are clips, images, audio files, and annotations placed on the timeline. Each type has specific properties and behaviors.
 
 ## Common Media Properties
 
@@ -10,7 +10,7 @@ All media items share these base properties:
 {
   "id": 25,
   "_type": "VMFile",
-  "src": 1,  // References sourceBin ID
+  "src": 1,
   "trackNumber": 0,
   "attributes": {
     "ident": "clip_name"
@@ -30,73 +30,59 @@ All media items share these base properties:
 ### Core Properties
 
 #### `id` (integer)
-- **Description**: Unique identifier for this media item
-- **Required**: Yes
-- **Note**: Must be unique across entire timeline
+Unique identifier for this media item. Must be unique across the entire timeline.
 
 #### `_type` (string)
-- **Description**: Media type identifier
-- **Required**: Yes
-- **Values**: See media types below
+Media type identifier. See media types below for valid values.
 
 #### `src` (integer)
-- **Description**: Source media ID from sourceBin
-- **Required**: Yes (except for generated content)
-- **Note**: References `sourceBin[].id`
+Source media ID from sourceBin. Required for all types except generated content. References `sourceBin[].id`.
 
 #### `trackNumber` (integer)
-- **Description**: Source track to use (for multi-track sources)
-- **Default**: `0`
-- **Example**: `0` for video, `1` for audio in same file
+Source track to use for multi-track sources. Default: `0`. Example: `0` for video, `1` for audio in the same file.
 
 ### Timing Properties
 
 #### `start` (integer)
-- **Description**: Position on timeline
-- **Units**: Project edit rate units
-- **Required**: Yes
+Position on timeline. Units: project edit rate. Required.
 
 #### `duration` (integer)
-- **Description**: Length on timeline
-- **Units**: Project edit rate units
-- **Required**: Yes
+Length on timeline. Units: project edit rate. Required.
 
 #### `mediaStart` (integer)
-- **Description**: In-point within source media
-- **Units**: Source media edit rate units
-- **Default**: `0`
+In-point within source media. Units: source media edit rate. Default: `0`.
 
 #### `mediaDuration` (integer)
-- **Description**: Length of source media used
-- **Units**: Source media edit rate units
-- **Default**: Same as `duration`
+Length of source media used. Units: source media edit rate. Default: same as `duration`.
 
-#### `scalar` (integer)
-- **Description**: Playback speed multiplier
-- **Default**: `1`
-- **Examples**: `2` = double speed, `0.5` = half speed
+#### `scalar` (float)
+Playback speed multiplier. Default: `1`. Examples: `2` = double speed, `0.5` = half speed.
 
 ## Video Media Types
 
-### VMFile (Video Media File)
+### VMFile
+Basic video clip.
+
 ```json
 {
   "_type": "VMFile",
   "src": 1,
   "parameters": {
-    "translation0": 0.0,    // X position
-    "translation1": 0.0,    // Y position
-    "scale0": 1.0,          // X scale
-    "scale1": 1.0,          // Y scale
-    "rotation0": 0.0,       // X rotation
-    "rotation1": 0.0,       // Y rotation
-    "rotation2": 0.0,       // Z rotation
+    "translation0": 0.0,
+    "translation1": 0.0,
+    "scale0": 1.0,
+    "scale1": 1.0,
+    "rotation0": 0.0,
+    "rotation1": 0.0,
+    "rotation2": 0.0,
     "opacity": 1.0
   }
 }
 ```
 
-### ScreenVMFile (Screen Recording)
+### ScreenVMFile
+Screen recording with audio sync control.
+
 ```json
 {
   "_type": "ScreenVMFile",
@@ -104,11 +90,13 @@ All media items share these base properties:
   "parameters": {
     // Same as VMFile
   },
-  "systemAudioOffset": 0  // Audio sync offset
+  "systemAudioOffset": 0
 }
 ```
 
-### UnifiedMedia (Combined Video/Audio)
+### UnifiedMedia
+Combined video and audio tracks from the same source.
+
 ```json
 {
   "_type": "UnifiedMedia",
@@ -116,22 +104,22 @@ All media items share these base properties:
     "id": 16,
     "_type": "ScreenVMFile",
     "src": 1,
-    "trackNumber": 1,
-    // Video properties
+    "trackNumber": 1
   },
   "audio": {
     "id": 17,
     "_type": "AMFile",
     "src": 1,
-    "trackNumber": 0,
-    // Audio properties
+    "trackNumber": 0
   }
 }
 ```
 
 ## Audio Media Types
 
-### AMFile (Audio Media File)
+### AMFile
+Audio clip with channel control.
+
 ```json
 {
   "_type": "AMFile",
@@ -144,14 +132,14 @@ All media items share these base properties:
     "loudnessNormalization": true,
     "sourceFileOffset": 0
   },
-  "channelNumber": "0,1",  // Stereo channels
+  "channelNumber": "0,1",
   "parameters": {
-    "volume": 1.0  // Can be animated
+    "volume": 1.0
   }
 }
 ```
 
-#### Audio-Specific Attributes
+#### Audio Attributes
 - **`gain`** (float): Audio gain multiplier
 - **`mixToMono`** (boolean): Convert to mono
 - **`loudnessNormalization`** (boolean): Apply normalization
@@ -159,7 +147,9 @@ All media items share these base properties:
 
 ## Image Media Types
 
-### IMFile (Image Media File)
+### IMFile
+Still image.
+
 ```json
 {
   "_type": "IMFile",
@@ -177,6 +167,8 @@ All media items share these base properties:
 ## Annotation Types
 
 ### Callout
+Visual annotation with shape and styling.
+
 ```json
 {
   "_type": "Callout",
@@ -203,6 +195,8 @@ All media items share these base properties:
 ```
 
 ### Text Callout
+Text-based annotation.
+
 ```json
 {
   "_type": "Callout",
@@ -230,14 +224,14 @@ All media items share these base properties:
 ```
 
 #### Callout Shapes
-- `"shape-rectangle"`: Rectangle
-- `"shape-rounded-rectangle"`: Rounded rectangle
-- `"shape-ellipse"`: Ellipse/circle
-- `"shape-triangle"`: Triangle
-- `"shape-pentagon"`: Pentagon
-- `"shape-hexagon"`: Hexagon
-- `"shape-cloud"`: Cloud shape
-- `"text"`: Text only
+- `"shape-rectangle"`
+- `"shape-rounded-rectangle"`
+- `"shape-ellipse"`
+- `"shape-triangle"`
+- `"shape-pentagon"`
+- `"shape-hexagon"`
+- `"shape-cloud"`
+- `"text"`
 
 #### Text Attributes
 ```json
@@ -259,6 +253,8 @@ All media items share these base properties:
 ```
 
 ### Group
+Container for nested media items.
+
 ```json
 {
   "_type": "Group",
@@ -274,7 +270,7 @@ All media items share these base properties:
 ## Media Parameters
 
 ### Transform Parameters
-All visual media supports these transform parameters:
+All visual media supports these parameters:
 
 | Parameter | Description | Default | Range |
 |-----------|-------------|---------|-------|
@@ -297,8 +293,6 @@ All visual media supports these transform parameters:
 
 ## Media Metadata
 
-Common metadata properties:
-
 ```json
 "metadata": {
   "clipSpeedAttribute": false,
@@ -317,7 +311,7 @@ For grouped visual elements:
   "assetProperties": [{
     "type": 1,
     "name": "Callout",
-    "objects": [41],  // IDs of grouped objects
+    "objects": [41],
     "themeMappings": {
       "fill": "background-1"
     }
@@ -328,19 +322,19 @@ For grouped visual elements:
 ## Best Practices
 
 1. **Type Selection**
-   - Use appropriate media type for content
-   - Prefer UnifiedMedia for synchronized A/V
+   - Match content to appropriate media type
+   - Use UnifiedMedia for synchronized video/audio
    - Use Groups for complex annotations
 
 2. **Parameter Defaults**
-   - Always include default transform values
+   - Include default transform values
    - Set opacity to 1.0 unless fading
    - Initialize scale to 1.0
 
 3. **ID Management**
-   - Ensure unique IDs across timeline
+   - IDs must be unique across timeline
    - Use sequential numbering
-   - Never reuse IDs
+   - Don't reuse IDs
 
 4. **Source References**
    - Verify source exists in sourceBin

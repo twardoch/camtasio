@@ -6,10 +6,10 @@
 
 ## Overview
 
-This documentation provides technical details about:
+This documentation covers:
 
-- The structure and format of Camtasia .tscproj project files
-- How to parse and manipulate these files programmatically
+- Structure and format of Camtasia .tscproj project files
+- Programmatic parsing and manipulation methods
 - Common use cases and best practices
 
 ## Quick Links
@@ -19,13 +19,13 @@ This documentation provides technical details about:
 
 ## File Format Documentation
 
-The [tscproj-format.md](tscproj-format.md) file contains comprehensive documentation of the Camtasia project file format, including:
+The [tscproj-format.md](tscproj-format.md) file documents the Camtasia project file format, including:
 
 - JSON structure overview
 - Property definitions and types
 - Media types and timeline structure
 - Animation and keyframe formats
 - Version differences between Camtasia releases
-- Best practices for parsing and modifying files
+- Parsing and modification best practices
 
-This documentation was created by analyzing over 200 example .tscproj files to understand the format comprehensively.
+This documentation is based on analysis of over 200 .tscproj files.

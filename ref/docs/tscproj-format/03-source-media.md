@@ -1,6 +1,6 @@
 # Source Media Management
 
-The `sourceBin` array contains all media files imported into the project. Each source item represents a unique media file with its metadata, tracks, and properties.
+The `sourceBin` array holds all media files imported into the project. Each source item represents a unique file, including its metadata, tracks, and properties.
 
 ## sourceBin Structure
 
@@ -21,44 +21,44 @@ The `sourceBin` array contains all media files imported into the project. Each s
 ## Source Item Properties
 
 ### `id` (integer)
-- **Description**: Unique identifier for this source
-- **Required**: Yes
-- **Usage**: Referenced by media items in the timeline
-- **Example**: `1`, `2`, `3`
+- Unique identifier for this source
+- Required
+- Referenced by timeline media items
+- Example: `1`, `2`, `3`
 
 ### `src` (string)
-- **Description**: Relative path to the media file
-- **Required**: Yes
-- **Format**: `./media/{timestamp}/{filename}`
-- **Example**: `"./media/1752976336.728338/intro.mp4"`
+- Relative path to the media file
+- Required
+- Format: `./media/{timestamp}/{filename}`
+- Example: `"./media/1752976336.728338/intro.mp4"`
 
 ### `rect` (array[4])
-- **Description**: Bounding rectangle of the media
-- **Format**: `[x, y, width, height]`
-- **Required**: Yes
-- **Notes**: 
-  - For video/images: actual dimensions
-  - For audio: `[0, 0, 0, 0]`
-- **Example**: `[0, 0, 1920, 1080]`
+- Bounding rectangle of the media
+- Format: `[x, y, width, height]`
+- Required
+- Notes:
+  - Video/images: actual dimensions
+  - Audio: `[0, 0, 0, 0]`
+- Example: `[0, 0, 1920, 1080]`
 
 ### `lastMod` (string)
-- **Description**: Last modification timestamp of the source file
-- **Format**: ISO 8601 basic format `YYYYMMDDTHHMMSS`
-- **Example**: `"20250419T143221"`
+- Last modification timestamp of the source file
+- Format: ISO 8601 basic format `YYYYMMDDTHHMMSS`
+- Example: `"20250419T143221"`
 
 ### `loudnessNormalization` (boolean)
-- **Description**: Whether loudness normalization is enabled
-- **Default**: `true`
-- **Applies to**: Audio tracks only
+- Whether loudness normalization is enabled
+- Default: `true`
+- Applies to audio tracks only
 
 ### `sourceTracks` (array)
-- **Description**: Array of tracks within the source media
-- **Required**: Yes
-- **Notes**: A media file can contain multiple tracks (e.g., video + audio)
+- Array of tracks within the source media
+- Required
+- Note: A media file can contain multiple tracks (e.g., video + audio)
 
 ### `metadata` (object)
-- **Description**: Additional metadata about the source
-- **Common properties**:
+- Additional metadata about the source
+- Common properties:
   - `timeAdded`: Timestamp when media was imported
   - Other custom properties
 
@@ -88,75 +88,75 @@ Each source can contain multiple tracks representing different streams:
 ## Track Properties
 
 ### `range` (array[2])
-- **Description**: Start and end points of the track
-- **Format**: `[start, end]`
-- **Units**: Track-specific time units based on `editRate`
-- **Example**: `[0, 9817]`
+- Start and end points of the track
+- Format: `[start, end]`
+- Units: Track-specific time units based on `editRate`
+- Example: `[0, 9817]`
 
 ### `type` (integer)
-- **Description**: Track type identifier
-- **Values**:
+- Track type identifier
+- Values:
   - `0`: Video track
   - `1`: Image/still track
   - `2`: Audio track
-- **Required**: Yes
+- Required
 
 ### `editRate` (integer)
-- **Description**: Time base for this track
-- **Common values**:
+- Time base for this track
+- Common values:
   - Video: `1000`, `600`, `30000`, `44100`
   - Audio: `44100`, `48000`
-- **Usage**: Used to calculate actual duration
+- Used to calculate actual duration
 
 ### `trackRect` (array[4])
-- **Description**: Track dimensions
-- **Format**: `[x, y, width, height]`
-- **Notes**:
+- Track dimensions
+- Format: `[x, y, width, height]`
+- Notes:
   - Video/Image: Actual dimensions
   - Audio: `[0, 0, 0, 0]`
 
 ### `sampleRate` (number/string)
-- **Description**: Sample rate for the track
-- **Format**: 
+- Sample rate for the track
+- Format:
   - Number: Direct rate (e.g., `60`)
   - String fraction: Precise rate (e.g., `"2997/100"` for 29.97 fps)
-- **Video**: Frame rate
-- **Audio**: Audio sample rate
+- Video: Frame rate
+- Audio: Audio sample rate
 
 ### `bitDepth` (integer)
-- **Description**: Bit depth of the track
-- **Note**: Often `0` for video tracks
+- Bit depth of the track
+- Often `0` for video tracks
 
 ### `numChannels` (integer)
-- **Description**: Number of audio channels
-- **Values**:
+- Number of audio channels
+- Values:
   - `0`: No audio (video/image tracks)
   - `1`: Mono
   - `2`: Stereo
   - Higher values for multi-channel audio
 
 ### `integratedLUFS` (float)
-- **Description**: Integrated loudness in LUFS
-- **Default**: `100.0` for non-audio tracks
-- **Range**: Typically -40.0 to 0.0 for audio
+- Integrated loudness in LUFS
+- Default: `100.0` for non-audio tracks
+- Range: Typically -40.0 to 0.0 for audio
 
 ### `peakLevel` (float)
-- **Description**: Peak audio level
-- **Default**: `-1.0` for non-audio tracks
-- **Range**: 0.0 to 1.0 for audio (linear scale)
+- Peak audio level
+- Default: `-1.0` for non-audio tracks
+- Range: 0.0 to 1.0 for audio (linear scale)
 
 ### `tag` (integer)
-- **Description**: Additional track identifier/tag
-- **Default**: `0`
+- Additional track identifier/tag
+- Default: `0`
 
 ### `metaData` (string)
-- **Description**: Track metadata string
-- **Format**: Often contains filename with semicolon separator
-- **Example**: `"video.mp4;"`
+- Track metadata string
+- Often contains filename with semicolon separator
+- Example: `"video.mp4;"`
 
 ### `parameters` (object)
-- **Description**: Additional track parameters
-- **Default**: Empty object `{}`
+- Additional track parameters
+- Default: Empty object `{}`
 
 ## Media File Organization
 
@@ -186,12 +186,12 @@ media/
   "rect": [0, 0, 1920, 1080],
   "sourceTracks": [
     {
-      "type": 0,  // Video track
+      "type": 0,
       "trackRect": [0, 0, 1920, 1080],
       "numChannels": 0
     },
     {
-      "type": 2,  // Audio track
+      "type": 2,
       "trackRect": [0, 0, 0, 0],
       "numChannels": 2
     }
@@ -242,7 +242,7 @@ durationSeconds = (range[1] - range[0]) / editRate
 
 ### For Version 9.0
 ```
-// First convert track time to project time
+// Convert track time to project time
 projectTime = (range[1] - range[0]) * (projectEditRate / trackEditRate)
 // Then to seconds
 durationSeconds = projectTime / projectEditRate
@@ -251,7 +251,7 @@ durationSeconds = projectTime / projectEditRate
 ## Best Practices
 
 1. **Path Management**
-   - Always use relative paths
+   - Use relative paths
    - Maintain media folder structure
    - Handle missing files gracefully
 
