@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"rtk grep -n \\\"TODO\\\\|HACK\\\\|dbg!\\\\|println!\\\\|console\\\\.log\\\\|debug_print\\\" /Users/adam/Developer/vcs3/github.fontlab/protai/projects/floxi-vf/src/features.rs /Users/adam/Developer/vcs3/gi...",
+  "error": "Exit code 1\n0 matches for 'TODO\\|HACK\\|dbg!\\|println!\\|console\\.log\\|debug_print'",
+  "timestamp": "2026-06-29T04:17:09.327Z",
+  "retry_count": 2
+}
